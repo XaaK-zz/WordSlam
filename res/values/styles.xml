@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style name="letterButtons" parent="@android:style/Widget.Button">
+	<item name="android:textSize">30dp</item>
+	<item name = "android:textStyle">bold</item>
+	<item name = "android:padding">5dp</item>
+	<item name = "android:layout_height">60dp</item>
+	<item name = "android:layout_width">60dp</item>
+</style>
+</resources>
