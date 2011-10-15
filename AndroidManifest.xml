@@ -4,8 +4,10 @@
 		package="psu.se.wordslam"
 		android:versionCode="1"
 		android:versionName="1.0">
-		<uses-sdk
-				android:minSdkVersion="10" />
+		<uses-sdk android:minSdkVersion="4"/>
+		<instrumentation android:name="android.test.InstrumentationTestRunner"
+    		android:targetPackage="psu.se.wordslam"
+    		android:label="Test" />
 
 		<application
 				android:icon="@drawable/icon"
@@ -20,6 +22,7 @@
 										android:name="android.intent.category.LAUNCHER" />
 						</intent-filter>
 				</activity>
-
+				<uses-library android:name="android.test.runner" />
 		</application>
+		
 </manifest>

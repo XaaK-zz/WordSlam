@@ -8,7 +8,6 @@
 		<LinearLayout
 				android:id="@+id/linearLayout1"
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
 				android:gravity="center">
 				<Button
 						android:id="@+id/button1"
@@ -29,7 +28,6 @@
 		<LinearLayout
 				android:id="@+id/linearLayout2"
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
 				android:gravity="center">
 				<Button
 						android:id="@+id/button6"
@@ -50,7 +48,6 @@
 		<LinearLayout
 				android:id="@+id/linearLayout3"
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
 				android:gravity="center">
 				<Button
 						android:id="@+id/button11"
@@ -71,7 +68,6 @@
 		<LinearLayout
 				android:id="@+id/linearLayout4"
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
 				android:gravity="center">
 				<Button
 						android:id="@+id/button16"
@@ -92,7 +88,6 @@
 		<LinearLayout
 				android:id="@+id/linearLayout5"
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
 				android:gravity="center">
 				<Button
 						android:id="@+id/button21"
