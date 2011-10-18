@@ -5,16 +5,19 @@
 		android:versionCode="1"
 		android:versionName="1.0">
 		<uses-sdk android:minSdkVersion="4"/>
+		
 		<instrumentation android:name="android.test.InstrumentationTestRunner"
-    		android:targetPackage="psu.se.wordslam"
-    		android:label="Test" />
+				android:targetPackage="psu.se.wordslam"
+				android:label="Test" />
 
 		<application
 				android:icon="@drawable/icon"
 				android:label="@string/app_name">
 				<activity
-						android:name=".WordSlamActivity"
-						android:label="@string/app_name">
+						android:name=".MainMenuActivity"
+						android:label="@string/app_name"
+						android:screenOrientation="portrait"
+						android:theme="@android:style/Theme.Light">
 						<intent-filter>
 								<action
 										android:name="android.intent.action.MAIN" />
@@ -22,7 +25,17 @@
 										android:name="android.intent.category.LAUNCHER" />
 						</intent-filter>
 				</activity>
+				<activity
+						android:name=".SingleGameActivity"
+						android:screenOrientation="landscape"
+						android:theme="@android:style/Theme.Light">
+				</activity>
+				<activity
+						android:name=".ResultsActivity"
+						android:screenOrientation="landscape"
+						android:theme="@android:style/Theme.Light">
+				</activity>
+
 				<uses-library android:name="android.test.runner" />
 		</application>
-		
 </manifest>
