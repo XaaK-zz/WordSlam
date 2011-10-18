@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, WorldSlamActivity!</string>
-    <string name="app_name">WorldSlam</string>
+    <string name="app_name">WordSlam</string>
     <string name="test">L</string>
+    <string name="NewOneGame">New Single Player Game</string>
+    <string name="NewTwoGame">New Two Player Game  </string>
+    <string name="Quit">Quit</string>
+    <string name="MainMenu">Main Menu</string>
+    <string name="WordsFound"><u>Words Found</u></string>
+    <string name="Loading">Loading New Game...</string>
+    <string name="Submit">Submit</string>
+    <string name="ResultsWordsFound">Found Words</string>
+    <string name="ResultsWordsMissed">Missed Words</string>
 </resources>

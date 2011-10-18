@@ -11,14 +11,26 @@
 				android:icon="@drawable/icon"
 				android:label="@string/app_name">
 				<activity
-						android:name=".WordSlamActivity"
-						android:label="@string/app_name">
+						android:name=".MainMenuActivity"
+						android:label="@string/app_name"
+						android:screenOrientation="portrait"
+						android:theme="@android:style/Theme.Light">
 						<intent-filter>
 								<action
 										android:name="android.intent.action.MAIN" />
 								<category
 										android:name="android.intent.category.LAUNCHER" />
 						</intent-filter>
+				</activity>
+				<activity
+						android:name=".SingleGameActivity"
+						android:screenOrientation="landscape"
+						android:theme="@android:style/Theme.Light">
+				</activity>
+				<activity
+						android:name=".ResultsActivity"
+						android:screenOrientation="landscape"
+						android:theme="@android:style/Theme.Light">
 				</activity>
 
 		</application>
