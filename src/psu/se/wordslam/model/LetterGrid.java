@@ -46,6 +46,11 @@ public class LetterGrid
 		this.m_gridData = data;
 	}
 	
+	/**
+	 * First stab at an API for detecting words.
+	 * @param touchPoints set of x,y coordinates on the grid
+	 * @return boolean if this the set of letters constitutes a valid word, false otherwise
+	 */
 	public boolean CheckWord(Vector<Point> touchPoints)
 	{
 		StringBuilder oSB = new StringBuilder();
@@ -58,6 +63,9 @@ public class LetterGrid
 		return true;
 	}
 	
+	/**
+	 * Utility method for displaying a grid to the console
+	 */
 	public String toString()
 	{
 		String result = "";
