@@ -7,10 +7,12 @@ Please see COPYING file in the distribution for license terms.
 
 package psu.se.wordslam;
 
+import psu.se.wordslam.model.*;
+import psu.se.wordslam.model.Game.GameType;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -48,12 +50,15 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 	// button was clicked. 
 	@Override
 	public void onClick(View v) {
+		WordSlamApplication wordSlamApplication = (WordSlamApplication)getApplicationContext();
 		switch(v.getId()) {
 			case R.id.btnNewOneGame:	
+				wordSlamApplication.CreateNewGame(GameType.SinglePlayer);
 	    		Intent gameIntent = new Intent(this, SingleGameActivity.class);
 	    		startActivityForResult(gameIntent, REQUEST_SPG);
 				break;
 			case R.id.btnNewTwoGame:
+				wordSlamApplication.CreateNewGame(GameType.MultiPlayer);
 				// STUB
 				break;
 			case R.id.btnQuit:

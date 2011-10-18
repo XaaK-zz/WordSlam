@@ -32,7 +32,7 @@ public class LetterGrid
 		{
 			for(int x=0;x<5;x++)
 			{
-				this.m_gridData[x][y] = (char)(oRandom.nextInt(26) + 'a');
+				this.m_gridData[x][y] = (char)(oRandom.nextInt(26) + 'A');
 			}
 		}
 	}
@@ -61,6 +61,17 @@ public class LetterGrid
 		}
 		//Now have word -> have to check if it is a word
 		return true;
+	}
+	
+	/**
+	 * Utility method to retrieve a grid character at position x,y
+	 * @param x Horizontal position (0-4)
+	 * @param y Vertical positions (0-4)
+	 * @return character at the specified position in the grid
+	 */
+	public char GetCharacterAtPosition(int x, int y)
+	{
+		return this.m_gridData[x][y];
 	}
 	
 	/**

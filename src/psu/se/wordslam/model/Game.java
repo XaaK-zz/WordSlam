@@ -16,9 +16,9 @@ public class Game
 	/**
 	 * Basic constructor - sets defaults for everything
 	 */
-	public Game()
+	public Game(GameType gameType)
 	{
-		this.m_GameType = GameType.SinglePlayer;
+		this.m_GameType = gameType;
 		this.m_Grid = new LetterGrid();
 		this.m_Grid.GenerateRandomBoard();
 		this.m_TotalGameTimeInMS = 5000;
@@ -80,6 +80,15 @@ public class Game
 	}
 	
 	/**
+	 * Retrieval method for the remaining Grid property
+	 * @return LetterGrid object
+	 */
+	public LetterGrid GetGrid()
+	{
+		return this.m_Grid;
+	}
+	
+	/**
 	 * GameType enumeration
 	 */
 	public enum GameType
@@ -87,4 +96,15 @@ public class Game
 		SinglePlayer,
 		MultiPlayer
 	}
+
+	public void StartTimer() 
+	{
+		//TODO
+	}
+	
+	public void PauseTimer()
+	{
+		//TODO
+	}
+	
 }

@@ -10,6 +10,8 @@ package psu.se.wordslam;
 import java.util.ArrayList;
 import java.util.Random;
 
+import psu.se.wordslam.model.WordSlamApplication;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,13 +29,14 @@ public class SingleGameActivity extends Activity {
 	private Random 				random = new Random();
 	private int					possiblePoints;
 	private int					totalPoints;
-	
+	private WordSlamApplication wordSlamApplication;
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        wordSlamApplication = (WordSlamApplication)getApplicationContext();
+		
         setContentView(R.layout.processing);
         // call grid.java to get board
         
@@ -52,7 +55,7 @@ public class SingleGameActivity extends Activity {
         
 
         
-		int range = 'Z' - 'A' + 1;		// Max - min + 1
+		//int range = 'Z' - 'A' + 1;		// Max - min + 1
 		buttons = new ArrayList<Button>();
 		for (int i = 1; i < 26; ++i) {
 			String btnId = "button" + i;
@@ -60,7 +63,8 @@ public class SingleGameActivity extends Activity {
 			int resId = getResources().getIdentifier(btnId, "id", 
 					"psu.se.wordslam");
 			Button btn = (Button) findViewById(resId);
-			char ch = (char)(random.nextInt(range) + 'A');
+			//char ch = (char)(random.nextInt(range) + 'A');
+			char ch = wordSlamApplication.GetGame().GetGrid().GetCharacterAtPosition((i-1) % 5, (i-1)/5);
 			btn.setText(Character.toString(ch));
 			
 			//btn.setOnClickListener(this);
