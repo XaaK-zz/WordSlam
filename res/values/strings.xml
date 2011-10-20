@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WordSlam</string>
-    <string name="test">L</string>
+    <string name="test">Q</string>
     <string name="NewOneGame">New Single Player Game</string>
     <string name="NewTwoGame">New Two Player Game  </string>
     <string name="Quit">Quit</string>
@@ -11,4 +11,5 @@
     <string name="Submit">Submit</string>
     <string name="ResultsWordsFound">Found Words</string>
     <string name="ResultsWordsMissed">Missed Words</string>
+    <string name="isWord">Word?</string>
 </resources>
