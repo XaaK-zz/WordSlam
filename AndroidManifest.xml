@@ -4,9 +4,11 @@
 		package="psu.se.wordslam"
 		android:versionCode="1"
 		android:versionName="1.0">
-		<uses-sdk android:minSdkVersion="10"/>
-		
-		<instrumentation android:name="android.test.InstrumentationTestRunner"
+		<uses-sdk
+				android:minSdkVersion="10" />
+
+		<instrumentation
+				android:name="android.test.InstrumentationTestRunner"
 				android:targetPackage="psu.se.wordslam"
 				android:label="Test" />
 
@@ -38,5 +40,6 @@
 				</activity>
 
 				<uses-library android:name="android.test.runner" />
+				<activity android:name="GameSetupActivity" android:theme="@android:style/Theme.Light"></activity>
 		</application>
 </manifest>
