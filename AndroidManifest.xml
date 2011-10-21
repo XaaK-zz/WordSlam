@@ -38,5 +38,6 @@
 				</activity>
 
 				<uses-library android:name="android.test.runner" />
+				<activity android:name="GameSetupActivity" android:theme="@android:style/Theme.Light"></activity>
 		</application>
 </manifest>
