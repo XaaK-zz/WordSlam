@@ -1,5 +1,8 @@
 package psu.se.wordslam.model;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
 /**
  * WordSlam Application - used to store global state for an Android app
  */
@@ -9,7 +12,8 @@ public class WordSlamApplication extends android.app.Application {
 	 * Singleton reference to the application object
 	 */
 	private static WordSlamApplication singleton;
-
+	public HashDictionary hashtable;
+	public static AssetManager assetManager;
 	/**
 	 * Reference to the Game object representing the current state of the game
 	 */
@@ -19,7 +23,7 @@ public class WordSlamApplication extends android.app.Application {
 	 * Singleton implementation
 	 * @return single instance of the application object
 	 */
-	public WordSlamApplication getInstance()
+	public static WordSlamApplication getInstance()
 	{
 		return singleton;
 	}
@@ -29,8 +33,11 @@ public class WordSlamApplication extends android.app.Application {
 	 */
 	@Override
 	public void onCreate() {
+		hashtable = new HashDictionary();
+		hashtable.dictionary_build();
 		super.onCreate();
 		singleton = this;
+		assetManager = getAssets();
 	}
 	
 	/**
