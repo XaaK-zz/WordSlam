@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent" android:orientation="vertical" android:weightSum="1">
+    
+       
+    <LinearLayout
+        android:id="@+id/vert1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:orientation="vertical" android:weightSum="1">
+        <LinearLayout android:id="@+id/linearLayout1" android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" android:layout_weight="0.29"></LinearLayout>
+        <LinearLayout
+            android:id="@+id/h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <TextView android:layout_width="wrap_content" android:text="Game time limit:" android:textSize="26px" android:id="@+id/text" android:layout_height="wrap_content"></TextView>
+            <Spinner android:id="@+id/spinnerMinutes" android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="wrap_content" ></Spinner>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/linearLayout6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_weight="0.36"></LinearLayout>
+        <LinearLayout android:id="@+id/linearLayout2" android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_weight="0.29" android:orientation="horizontal">
+            <LinearLayout android:id="@+id/linearLayout4" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_weight="0.04"></LinearLayout>
+            <Button android:id="@+id/btnStartGame" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Start Game!" android:layout_weight="0.01"></Button>
+            <LinearLayout android:id="@+id/linearLayout5" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_weight="0.04"></LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/linearLayout3" android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal"></LinearLayout>
+        
+    </LinearLayout>
+    
+</LinearLayout>

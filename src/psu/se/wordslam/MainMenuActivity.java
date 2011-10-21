@@ -55,7 +55,8 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 		switch(v.getId()) {
 			case R.id.btnNewOneGame:	
 				wordSlamApplication.CreateNewGame(GameType.SinglePlayer);
-	    		Intent gameIntent = new Intent(this, SingleGameActivity.class);
+	    		//Intent gameIntent = new Intent(this, SingleGameActivity.class);
+				Intent gameIntent = new Intent(this, GameSetupActivity.class);
 	    		startActivityForResult(gameIntent, REQUEST_SPG);
 				break;
 			case R.id.btnNewTwoGame:
