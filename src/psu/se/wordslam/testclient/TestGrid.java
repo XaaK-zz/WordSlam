@@ -1,5 +1,6 @@
 package psu.se.wordslam.testclient;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import psu.se.wordslam.model.LetterGrid;
@@ -27,5 +28,7 @@ public class TestGrid extends TestCase {
 		
 		grid.Fill(test);
 		System.out.println(grid);
+		//Assert.assertEquals(true, grid.CheckWord(""""""),"Failed to find word.");
+		
 	}
 }
