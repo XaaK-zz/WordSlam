@@ -23,7 +23,6 @@
 								android:gravity="center"
 								android:text="@string/ResultsWordsFound" android:textColor="#336666" android:layout_marginBottom="3dp" android:textStyle="bold"></TextView>
 						<TextView
-								android:text="TextView"
 								android:id="@+id/tvResults"
 								android:focusable="false"
 								android:layout_height="match_parent"
@@ -44,7 +43,6 @@
 								android:gravity="center"
 								android:text="@string/ResultsWordsMissed" android:textColor="#336666" android:layout_marginBottom="3dp" android:textStyle="bold"></TextView>
 						<TextView
-								android:text="TextView"
 								android:id="@+id/tvResultsMissed"
 								android:layout_height="match_parent"
 								android:layout_width="match_parent"
