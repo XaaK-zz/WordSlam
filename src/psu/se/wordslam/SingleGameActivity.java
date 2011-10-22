@@ -85,7 +85,9 @@ public class SingleGameActivity extends Activity implements OnClickListener {
 	    		break;
 	    	case R.id.btnSubmitWord:
 	    		// pass list of coords to get boolean return
-	    		if (wordSlamApplication.hashtable.dictionary_search(aWord)){
+	    		Toast.makeText(SingleGameActivity.this, aWord.toLowerCase(), 
+    					Toast.LENGTH_SHORT).show();
+	    		if (wordSlamApplication.dictionary_search(aWord.toLowerCase())){
 	    			Toast.makeText(SingleGameActivity.this, "It's a Word!", 
 	    					Toast.LENGTH_SHORT).show();
 	    			wordsFound.append(aWord + "\n");

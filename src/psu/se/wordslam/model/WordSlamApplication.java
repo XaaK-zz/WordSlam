@@ -1,6 +1,10 @@
 package psu.se.wordslam.model;
-
-import android.content.Context;
+import android.widget.Toast;  
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashSet;
+import android.content.res.Resources; 
 import android.content.res.AssetManager;
 
 /**
@@ -12,8 +16,10 @@ public class WordSlamApplication extends android.app.Application {
 	 * Singleton reference to the application object
 	 */
 	private static WordSlamApplication singleton;
-	public HashDictionary hashtable;
-	public static AssetManager assetManager;
+	public HashSet<String> dic ;	
+	public AssetManager assetManager;
+	private Resources resources; 
+	public String dummy;
 	/**
 	 * Reference to the Game object representing the current state of the game
 	 */
@@ -33,11 +39,13 @@ public class WordSlamApplication extends android.app.Application {
 	 */
 	@Override
 	public void onCreate() {
-		hashtable = new HashDictionary();
-		hashtable.dictionary_build();
+		//assetManager = getAssets();
+		resources = getResources();  
+		dic = new HashSet<String>(); 
+		dictionary_build();
+		
 		super.onCreate();
-		singleton = this;
-		assetManager = getAssets();
+		singleton = this;		
 	}
 	
 	/**
@@ -48,6 +56,7 @@ public class WordSlamApplication extends android.app.Application {
 	public void CreateNewGame(Game.GameType gameType)
 	{
 		this.m_Game = new Game(gameType);
+		
 	}
 	
 	/**
@@ -78,4 +87,44 @@ public class WordSlamApplication extends android.app.Application {
 	{
 		this.m_Game.StartTimer();
 	}
+
+	public void dictionary_build()
+	{
+			String strLine;
+			//dummy = "zyic";
+			//dic.add("god");
+			//dic.add("man");
+			try
+	 	  	{	
+				  
+				  //AssetManager assetManager = getAssets();
+				  //InputStream is = am.open("test.txt");
+				  InputStream inputStream = resources.getAssets().open("dictionary.txt");
+				  
+	 			  //InputStream inputStream = assetManager.open("/dictionary.txt");
+	 			  InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+	 			  BufferedReader br = new BufferedReader(inputStreamReader);	 			 			  
+	 			  			 
+	 			  //Read File Line By Line
+	 			  while ((strLine = br.readLine()) != null) {
+	 				  // Add the string to array list
+	 				  dic.add(strLine);	
+	 				  //dummy = strLine;
+	 			  }
+	 			 //Toast.makeText(this, dummy,Toast.LENGTH_SHORT).show();
+	 			  //Close the input stream
+	 			  inputStream.close();
+	 	  	} catch (Exception e) {
+	 	  		Toast toast = Toast.makeText(this, "File: not found!", Toast.LENGTH_LONG); 	  		toast.show(); 
+	            
+	        }
+	}
+	  
+	public boolean dictionary_search(String input){
+	 	boolean index;
+		index = dic.contains(input);
+		//index = dummy.equals(input);	
+	 	 return index;	 
+	}
+	  
 }
