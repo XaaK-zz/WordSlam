@@ -16,8 +16,8 @@ import android.widget.Button;
 
 public class ResultsActivity extends Activity implements OnClickListener {
 	private Button				mainMenu;
-	
-	
+
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class ResultsActivity extends Activity implements OnClickListener {
         
 		mainMenu = (Button) findViewById(R.id.btnMainMenu);
 		mainMenu.setOnClickListener(this);
-		
+
 		// for each string in found words
 		// write to results screen
     }

@@ -27,7 +27,8 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 	
 	private Button 		btnNewOneGame;
 	private Button		btnNewTwoGame;
-	private Button		btnQuit;
+	// considered bad practice to have quit button...
+	//private Button		btnQuit;
 	
 	
 	/** Called when the activity is first created. */
@@ -40,8 +41,8 @@ public class MainMenuActivity extends Activity implements OnClickListener {
         btnNewOneGame.setOnClickListener(this);
         btnNewTwoGame = (Button) findViewById(R.id.btnNewTwoGame);
         btnNewTwoGame.setOnClickListener(this);
-        btnQuit = (Button) findViewById(R.id.btnQuit);
-        btnQuit.setOnClickListener(this);
+        //btnQuit = (Button) findViewById(R.id.btnQuit);
+        //btnQuit.setOnClickListener(this);
         
     }
     
@@ -62,11 +63,11 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 				wordSlamApplication.CreateNewGame(GameType.MultiPlayer);
 				// STUB
 				break;
-			case R.id.btnQuit:
-				finish();
+			//case R.id.btnQuit:
+				//finish();
 		}
     }
-	
+/*	
 	
 	// Reset main menu
 	@Override
@@ -79,5 +80,5 @@ public class MainMenuActivity extends Activity implements OnClickListener {
         btnNewTwoGame.setOnClickListener(this);
         btnQuit = (Button) findViewById(R.id.btnQuit);
         btnQuit.setOnClickListener(this);
-	}
+	}*/
 }

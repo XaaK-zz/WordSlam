@@ -84,13 +84,12 @@ public class SingleGameActivity extends Activity implements OnClickListener {
 	    		startActivityForResult(resultsIntent, REQUEST_RESULTS);
 	    		break;
 	    	case R.id.btnSubmitWord:
-	    		// pass list of coords to get boolean return
 	    		Toast.makeText(SingleGameActivity.this, aWord.toLowerCase(), 
     					Toast.LENGTH_SHORT).show();
-	    		if (wordSlamApplication.dictionary_search(aWord.toLowerCase())){
+	    		if (wordSlamApplication.dictionary_search(aWord.toLowerCase())) {
 	    			Toast.makeText(SingleGameActivity.this, "It's a Word!", 
 	    					Toast.LENGTH_SHORT).show();
-	    			wordsFound.append(aWord + "\n");
+	    			wordsFound.append(aWord + "\n"); // add to textview
 	    		}
 	    		else{
 	    			Toast.makeText(SingleGameActivity.this, "Oops, not a word...", Toast.LENGTH_SHORT).show();
