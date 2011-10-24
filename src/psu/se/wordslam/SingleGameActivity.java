@@ -9,6 +9,7 @@ package psu.se.wordslam;
 
 import psu.se.wordslam.model.WordSlamApplication;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class SingleGameActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         wordSlamApplication = (WordSlamApplication)getApplicationContext();
 		
         //setContentView(R.layout.processing);
@@ -82,15 +84,16 @@ public class SingleGameActivity extends Activity implements OnClickListener {
 	    		startActivityForResult(resultsIntent, REQUEST_RESULTS);
 	    		break;
 	    	case R.id.btnSubmitWord:
-	    		// pass list of coords to get boolean return
-	    		
-	    		// if true (is a word) 
+	    		Toast.makeText(SingleGameActivity.this, aWord.toLowerCase(), 
+    					Toast.LENGTH_SHORT).show();
+	    		if (wordSlamApplication.dictionary_search(aWord.toLowerCase())) {
 	    			Toast.makeText(SingleGameActivity.this, "It's a Word!", 
 	    					Toast.LENGTH_SHORT).show();
-	    			wordsFound.append(aWord + "\n");
-	    		// else (not a word)
-	    			// Toast.makeText(SingleGameActivity.this, "Oops, not a word...", 
-					//Toast.LENGTH_SHORT).show();
+	    			wordsFound.append(aWord + "\n"); // add to textview
+	    		}
+	    		else{
+	    			Toast.makeText(SingleGameActivity.this, "Oops, not a word...", Toast.LENGTH_SHORT).show();
+	    		}
 	    		aWord = "";		// reset "aWord"
 	    		// clear all pressed buttons
 	    		resetButtons();

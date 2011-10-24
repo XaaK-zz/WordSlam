@@ -20,7 +20,16 @@ public class Game
 	{
 		this.m_GameType = gameType;
 		this.m_Grid = new LetterGrid();
-		this.m_Grid.GenerateRandomBoard();
+		//this.m_Grid.GenerateRandomBoard();
+		char[][] test =  
+		{
+			{'P','Q','E','T','T'},
+			{'K','Z','I','Z','O'},
+			{'K','M','I','M','P'},
+			{'H','N','O','T','E'},
+			{'R','O','I','B','X'}
+		};
+		this.m_Grid.Fill(test);
 		this.m_TotalGameTimeInMS = 5000;
 		this.m_TotalGameTimeInMS = 5000;
 	}
