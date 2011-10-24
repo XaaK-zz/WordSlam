@@ -83,6 +83,7 @@ public class SingleGameActivity extends Activity implements OnClickListener {
 	    		break;
 	    	case R.id.btnSubmitWord:
 	    		// pass list of coords to get boolean return
+	    		
 	    		// if true (is a word) 
 	    			Toast.makeText(SingleGameActivity.this, "It's a Word!", 
 	    					Toast.LENGTH_SHORT).show();
