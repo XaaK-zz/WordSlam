@@ -7,30 +7,16 @@ Please see COPYING file in the distribution for license terms.
 
 package psu.se.wordslam;
 
-import java.util.ArrayList;
-import java.util.Vector;
-
 import psu.se.wordslam.model.WordSlamApplication;
 
-
+import java.util.Vector;
 import android.app.Activity;
 import android.content.Intent;
-import android.gesture.Gesture;
-import android.gesture.GestureLibraries;
-import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.GestureOverlayView.OnGestureListener;
-import android.gesture.GestureOverlayView.OnGesturePerformedListener;
-import android.gesture.GestureOverlayView.OnGesturingListener;
-import android.gesture.GestureStroke;
-import android.gesture.Prediction;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,22 +25,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SingleGameActivity extends Activity implements OnClickListener, OnGestureListener {
-	private static final String 	TAG = "WSSinglePlayer";
 	private static final int		REQUEST_RESULTS = 0;
 	
-
 	private Button				submitGame;
 	private TextView			wordsFound;
-	//private String				aWord = "";
 	private WordSlamApplication wordSlamApplication;
 	private Vector<GridButton> selectedButtons = new Vector<GridButton>();
 	
-	//private int				possiblePoints;
-	//private int				totalPoints;
-	//private GestureDetector mGestureDetector;
-	//private View.OnTouchListener gestureListener;
-	//GestureLibrary mLibrary;
-	
+	//delta values used to determine next valid grid button
+	private int deltaX;
+    private int deltaY;
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,8 +57,8 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
         // For each button on game board, set its letter, connect the listener,
         // and set its x and y coordinates.
 		int btnNum = 1;
-		for (int x = 0; x < 5; ++x) {
-			for (int y = 0; y < 5; ++y) {
+		for (int y = 0; y < 5; ++y) {
+			for (int x = 0; x < 5; ++x) {
 				String btnId = "GridButton" + btnNum;
 				int resId = getResources().getIdentifier(btnId, "id", "psu.se.wordslam");
 				GridButton btn = (GridButton) findViewById(resId);
@@ -111,13 +92,33 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
         finish();	// return to MainMenuActivity
     }
 
-	@Override
+    @Override
 	public void onGesture(GestureOverlayView overlay, MotionEvent event) {
 		GridButton temp = this.GetButton((int)event.getRawX(), (int)event.getRawY());
 		if(temp != null)
 		{
 			if(!selectedButtons.contains(temp))
 			{
+				if(selectedButtons.size() == 1)
+				{
+					//this is the second button - can set direction
+					deltaX = selectedButtons.get(0).x - temp.x;
+					deltaY = selectedButtons.get(0).y - temp.y;
+					
+					//Ensure we are not moving backwards
+					if(deltaX > 0)
+						return;
+				}
+				else
+				{
+					 //compare to last one
+					 int tempX = selectedButtons.get(selectedButtons.size()-1).x - temp.x;
+					 int tempY = selectedButtons.get(selectedButtons.size()-1).y - temp.y;
+					 
+					 //Ensure we are on the same path
+					 if(tempX != deltaX || tempY != deltaY)
+						 return;
+				}
 				temp.SetActive();
 				selectedButtons.add(temp);
 			}
@@ -157,10 +158,10 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 				
 				btn.getLocationInWindow(pos);
 				//shrink box for better detection
-				rect.left = pos[0] + 10;
-				rect.top = pos[1] + 10;
-				rect.bottom = rect.top + btn.getHeight() - 10;
-				rect.right = rect.left + btn.getWidth() - 10;
+				rect.left = pos[0] + 20;
+				rect.top = pos[1] + 20;
+				rect.bottom = rect.top + btn.getHeight() - 40;
+				rect.right = rect.left + btn.getWidth() - 40;
 				
 				if(rect.intersects(xPos, yPos, xPos+5, yPos+5))
 				{
