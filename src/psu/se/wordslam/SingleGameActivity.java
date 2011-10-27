@@ -84,8 +84,8 @@ public class SingleGameActivity extends Activity implements OnClickListener {
 	    		startActivityForResult(resultsIntent, REQUEST_RESULTS);
 	    		break;
 	    	case R.id.btnSubmitWord:
-	    		Toast.makeText(SingleGameActivity.this, aWord.toLowerCase(), 
-    					Toast.LENGTH_SHORT).show();
+	    		//Toast.makeText(SingleGameActivity.this, aWord.toLowerCase(), 
+    				//	Toast.LENGTH_SHORT).show();
 	    		if (wordSlamApplication.dictionary_search(aWord.toLowerCase())) {
 	    			Toast.makeText(SingleGameActivity.this, "It's a Word!", 
 	    					Toast.LENGTH_SHORT).show();

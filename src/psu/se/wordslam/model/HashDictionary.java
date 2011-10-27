@@ -1,4 +1,5 @@
 package psu.se.wordslam.model;
+
 import psu.se.wordslam.model.WordSlamApplication;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -7,8 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 
-import android.content.Context;
-import android.content.res.AssetManager;
 public class HashDictionary 
 {
  HashSet<String> dic = new HashSet<String>();
