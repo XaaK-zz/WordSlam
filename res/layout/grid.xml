@@ -4,7 +4,8 @@
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		android:padding="10dp"
-		android:orientation="vertical">
+		android:orientation="vertical"
+		android:id="@+id/bottomLayer">
 		<LinearLayout
 				android:id="@+id/linearLayout8"
 				android:layout_height="fill_parent"
@@ -13,114 +14,161 @@
 						android:gravity="left"
 						android:layout_height="wrap_content"
 						android:id="@+id/linearLayout7"
-						android:layout_width="200dp" android:layout_marginRight="10dp" android:orientation="vertical">
-					<TextView android:layout_height="wrap_content" android:layout_width="fill_parent" android:gravity="center" android:text="@string/WordsFound" android:textStyle="bold" android:id="@+id/tvGridTitle"></TextView>
-					<TextView android:layout_width="fill_parent" android:scrollHorizontally="false" android:layout_height="200dp" android:id="@+id/tvWordsFound" android:scrollbars="vertical"></TextView>
-					<LinearLayout android:id="@+id/linearLayout9" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center">
-						<Button android:text="@string/Submit" android:layout_gravity="center" android:textSize="13dp" android:layout_width="wrap_content" android:id="@+id/btnSubmitGame" android:gravity="center" android:layout_height="35dp"></Button>
-						<Button android:layout_width="wrap_content" android:id="@+id/btnSubmitWord" android:text="@string/isWord" android:textSize="13dp" android:gravity="center" android:layout_height="35dp"></Button>
-					</LinearLayout>
+						android:layout_width="200dp"
+						android:layout_marginRight="10dp"
+						android:orientation="vertical">
+						<TextView
+								android:layout_height="wrap_content"
+								android:layout_width="fill_parent"
+								android:gravity="center"
+								android:text="@string/WordsFound"
+								android:textStyle="bold"
+								android:id="@+id/tvGridTitle"
+								android:textSize="20dp"></TextView>
+
+						<TextView
+								android:layout_width="fill_parent"
+								android:layout_height="200dp"
+								android:id="@+id/tvWordsFound"
+								android:scrollbars="vertical"
+								android:textSize="20dp"
+								android:scrollbarAlwaysDrawVerticalTrack="true"
+								android:scrollbarStyle="insideOverlay"></TextView>
+						<LinearLayout
+								android:id="@+id/linearLayout9"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:gravity="center">
+								<Button
+										android:text="@string/Submit"
+										android:layout_gravity="center"
+										android:textSize="13dp"
+										android:layout_width="wrap_content"
+										android:id="@+id/btnSubmitGame"
+										android:gravity="center"
+										android:layout_height="35dp"></Button>
+						</LinearLayout>
 				</LinearLayout>
-				<LinearLayout
+				<android.gesture.GestureOverlayView
+						xmlns:android="http://schemas.android.com/apk/res/android"
+						android:id="@+id/gestures"
+						android:layout_width="fill_parent"
 						android:layout_height="fill_parent"
-						android:id="@+id/linearLayout6"
-						android:orientation="vertical" android:layout_width="wrap_content">
+						android:eventsInterceptionEnabled="true"
+						android:orientation="vertical"
+						android:gestureStrokeAngleThreshold="0.0"
+						android:gestureStrokeSquarenessThreshold="0.0">
 						<LinearLayout
-								android:gravity="right"
-								android:layout_height="wrap_content"
-								android:id="@+id/linearLayout1"
-								android:layout_width="match_parent">
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton1"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										style="@style/letterButtons" android:id="@+id/GridButton2"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										style="@style/letterButtons" android:id="@+id/GridButton3"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										style="@style/letterButtons" android:id="@+id/GridButton4"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										style="@style/letterButtons" android:id="@+id/GridButton5"></psu.se.wordslam.GridButton>
+								android:layout_height="fill_parent"
+								android:id="@+id/linearLayout6"
+								android:orientation="vertical"
+								android:layout_width="wrap_content">
+								<LinearLayout
+										android:gravity="right"
+										android:layout_height="wrap_content"
+										android:id="@+id/linearLayout1"
+										android:layout_width="match_parent">
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton1"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												style="@style/letterButtons"
+												android:id="@+id/GridButton2"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												style="@style/letterButtons"
+												android:id="@+id/GridButton3"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												style="@style/letterButtons"
+												android:id="@+id/GridButton4"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												style="@style/letterButtons"
+												android:id="@+id/GridButton5"></psu.se.wordslam.GridButton>
+								</LinearLayout>
+								<LinearLayout
+										android:gravity="right"
+										android:layout_height="wrap_content"
+										android:id="@+id/linearLayout2"
+										android:layout_width="match_parent">
+										<psu.se.wordslam.GridButton
+												style="@style/letterButtons"
+												android:id="@+id/GridButton6"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												style="@style/letterButtons"
+												android:id="@+id/GridButton7"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												style="@style/letterButtons"
+												android:id="@+id/GridButton8"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton9"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton10"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+								</LinearLayout>
+								<LinearLayout
+										android:gravity="right"
+										android:layout_height="wrap_content"
+										android:id="@+id/linearLayout3"
+										android:layout_width="match_parent">
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton11"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton12"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton13"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton14"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton15"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+								</LinearLayout>
+								<LinearLayout
+										android:gravity="right"
+										android:layout_height="wrap_content"
+										android:id="@+id/linearLayout4"
+										android:layout_width="match_parent">
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton16"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton17"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton18"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton19"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton20"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+								</LinearLayout>
+								<LinearLayout
+										android:gravity="right"
+										android:layout_height="wrap_content"
+										android:id="@+id/linearLayout5"
+										android:layout_width="match_parent">
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton21"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton22"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton23"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton24"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+										<psu.se.wordslam.GridButton
+												android:id="@+id/GridButton25"
+												style="@style/letterButtons"></psu.se.wordslam.GridButton>
+								</LinearLayout>
 						</LinearLayout>
-						<LinearLayout
-								android:gravity="right"
-								android:layout_height="wrap_content"
-								android:id="@+id/linearLayout2"
-								android:layout_width="match_parent">
-								<psu.se.wordslam.GridButton
-										style="@style/letterButtons" android:id="@+id/GridButton6"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										style="@style/letterButtons" android:id="@+id/GridButton7"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										style="@style/letterButtons" android:id="@+id/GridButton8"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton9"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton10"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-						</LinearLayout>
-						<LinearLayout
-								android:gravity="right"
-								android:layout_height="wrap_content"
-								android:id="@+id/linearLayout3"
-								android:layout_width="match_parent">
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton11"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton12"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton13"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton14"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton15"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-						</LinearLayout>
-						<LinearLayout
-								android:gravity="right"
-								android:layout_height="wrap_content"
-								android:id="@+id/linearLayout4"
-								android:layout_width="match_parent">
-							<psu.se.wordslam.GridButton android:id="@+id/GridButton16" style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton17"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton18"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton19"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton20"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-						</LinearLayout>
-						<LinearLayout
-								android:gravity="right"
-								android:layout_height="wrap_content"
-								android:id="@+id/linearLayout5"
-								android:layout_width="match_parent">
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton21"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton22"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton23"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton24"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-								<psu.se.wordslam.GridButton
-										android:id="@+id/GridButton25"
-										style="@style/letterButtons"></psu.se.wordslam.GridButton>
-						</LinearLayout>
-				</LinearLayout>
+				</android.gesture.GestureOverlayView>
 		</LinearLayout>
 </LinearLayout>

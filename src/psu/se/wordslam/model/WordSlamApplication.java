@@ -3,6 +3,7 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashSet;
 import android.content.res.Resources; 
 import android.content.res.AssetManager;
@@ -15,15 +16,17 @@ public class WordSlamApplication extends android.app.Application {
 	/**
 	 * Singleton reference to the application object
 	 */
-	private static WordSlamApplication singleton;
-	public HashSet<String> dic ;	
-	public AssetManager assetManager;
-	private Resources resources; 
-	public String dummy;
+	private static WordSlamApplication 	singleton;
+	public HashSet<String> 				dic;	
+	public static AssetManager 			assetManager;
+	public static ArrayList<Character> 	easyAlphabet;
+	private Resources	 				resources; 
+	public String 						dummy;
+	
 	/**
 	 * Reference to the Game object representing the current state of the game
 	 */
-	private Game m_Game;
+	public Game m_Game;
 	
 	/**
 	 * Singleton implementation
@@ -45,7 +48,8 @@ public class WordSlamApplication extends android.app.Application {
 		dictionary_build();
 		
 		super.onCreate();
-		singleton = this;		
+		singleton = this;	
+		easyAlphabet = Alphabet.buildEasyAlphabet();
 	}
 	
 	/**

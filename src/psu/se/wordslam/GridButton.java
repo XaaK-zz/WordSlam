@@ -3,6 +3,7 @@ package psu.se.wordslam;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Button;
 
@@ -60,6 +61,19 @@ public class GridButton extends Button {
 		this.y = y;
 	}
 	
+	public void SetActive()
+	{
+		this.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_default_selected));
+		isClicked = true;
+	}
+	
+	public void SetInactive()
+	{
+		this.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_default_normal));
+		isClicked = false;
+	}
+	
+	/*
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -74,4 +88,5 @@ public class GridButton extends Button {
 		}	
 		return super.onTouchEvent(event);
 	}
+	*/
 }

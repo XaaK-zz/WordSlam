@@ -15,20 +15,26 @@
 						android:layout_height="match_parent"
 						android:orientation="vertical"
 						android:layout_width="match_parent"
-						android:layout_weight="1" android:layout_marginRight="2dp">
+						android:layout_weight="1"
+						android:layout_marginRight="2dp">
 						<TextView
 								android:layout_height="wrap_content"
 								android:id="@+id/tvWordsFound"
 								android:layout_width="match_parent"
 								android:gravity="center"
-								android:text="@string/ResultsWordsFound" android:textColor="#336666" android:layout_marginBottom="3dp" android:textStyle="bold"></TextView>
+								android:text="@string/ResultsWordsFound"
+								android:textColor="#336666"
+								android:layout_marginBottom="3dp"
+								android:textStyle="bold"></TextView>
 						<TextView
 								android:id="@+id/tvResults"
 								android:focusable="false"
 								android:layout_height="match_parent"
 								android:layout_width="match_parent"
 								android:background="@drawable/back"
-								android:scrollbars="vertical" android:layout_marginRight="3dp" android:padding="5dp"></TextView>
+								android:scrollbars="vertical"
+								android:layout_marginRight="3dp"
+								android:padding="5dp"></TextView>
 				</LinearLayout>
 				<LinearLayout
 						android:id="@+id/linearLayout3"
@@ -41,13 +47,19 @@
 								android:id="@+id/tvWordsMissed"
 								android:layout_width="match_parent"
 								android:gravity="center"
-								android:text="@string/ResultsWordsMissed" android:textColor="#336666" android:layout_marginBottom="3dp" android:textStyle="bold"></TextView>
+								android:text="@string/ResultsWordsMissed"
+								android:textColor="#336666"
+								android:layout_marginBottom="3dp"
+								android:textStyle="bold"></TextView>
 						<TextView
 								android:id="@+id/tvResultsMissed"
 								android:layout_height="match_parent"
 								android:layout_width="match_parent"
 								android:background="@drawable/back"
-								android:scrollbars="vertical" android:scrollbarStyle="insideOverlay" android:layout_marginLeft="3dp" android:padding="5dp"></TextView>
+								android:scrollbars="vertical"
+								android:scrollbarStyle="insideOverlay"
+								android:layout_marginLeft="3dp"
+								android:padding="5dp"></TextView>
 				</LinearLayout>
 		</LinearLayout>
 		<LinearLayout

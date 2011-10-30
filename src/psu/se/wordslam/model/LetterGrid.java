@@ -1,5 +1,6 @@
 package psu.se.wordslam.model;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
@@ -12,6 +13,7 @@ import android.graphics.Point;
 public class LetterGrid 
 {
 	private char[][] m_gridData;
+	private static ArrayList<Character> alphabet;
 	
 	/**
 	 * Basic Constructor
@@ -22,17 +24,20 @@ public class LetterGrid
 	}
 	
 	/**
-	 * Fills the board with random characters
+	 * Fills the board with random characters drawn from easyAlphabet
 	 */
 	public void GenerateRandomBoard()
 	{
 		Random oRandom = new Random();
+		int randomIndex;
 		
 		for(int y=0;y<5;y++)
 		{
 			for(int x=0;x<5;x++)
 			{
-				this.m_gridData[x][y] = (char)(oRandom.nextInt(26) + 'A');
+				randomIndex = oRandom.nextInt(WordSlamApplication.easyAlphabet.size());
+				this.m_gridData[x][y] = (char)WordSlamApplication.easyAlphabet.get(randomIndex);
+				//this.m_gridData[x][y] = (char)(oRandom.nextInt(26) + 'A');
 			}
 		}
 	}

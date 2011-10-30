@@ -1,11 +1,15 @@
 package psu.se.wordslam.model;
 
+import java.util.ArrayList;
+
 /**
  * Represents a game in the system
  */
 public class Game 
 {
-	private LetterGrid m_Grid;
+	private LetterGrid 			m_Grid;
+	private ArrayList<String> 	wordsFound;
+	private ArrayList<String> 	allWords;
 	
 	private GameType m_GameType;
 	
@@ -20,7 +24,11 @@ public class Game
 	{
 		this.m_GameType = gameType;
 		this.m_Grid = new LetterGrid();
-		//this.m_Grid.GenerateRandomBoard();
+		this.m_Grid.GenerateRandomBoard();
+		this.wordsFound = new ArrayList<String>();
+		this.allWords = new ArrayList<String>();
+		// get all words from dictionary and add to allWords list
+		
 		char[][] test =  
 		{
 			{'P','Q','E','T','T'},
@@ -29,7 +37,7 @@ public class Game
 			{'H','N','O','T','E'},
 			{'R','O','I','B','X'}
 		};
-		this.m_Grid.Fill(test);
+		//this.m_Grid.Fill(test);
 		this.m_TotalGameTimeInMS = 5000;
 		this.m_TotalGameTimeInMS = 5000;
 	}
@@ -114,6 +122,36 @@ public class Game
 	public void PauseTimer()
 	{
 		//TODO
+	}
+	
+	
+	/**
+	 * Retrieval method for all words found by player
+	 * @return wordsFound list
+	 */
+	public ArrayList<String> getFoundWords() 
+	{
+		return wordsFound;
+	}
+	
+	
+	/**
+	 * Retrieval method for all words on board
+	 * @return allWords list
+	 */
+	public ArrayList<String> getAllWords()
+	{
+		return allWords;
+	}
+	
+	
+	/**
+	 * Adds a word to the list of all words found by player
+	 * @param word Word found by player
+	 */
+	public void addFoundWord(String word)
+	{
+		wordsFound.add(word);	
 	}
 	
 }

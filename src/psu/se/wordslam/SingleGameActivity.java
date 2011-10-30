@@ -9,67 +9,72 @@ package psu.se.wordslam;
 
 import psu.se.wordslam.model.WordSlamApplication;
 
-
+import java.util.Vector;
 import android.app.Activity;
 import android.content.Intent;
+import android.gesture.GestureOverlayView;
+import android.gesture.GestureOverlayView.OnGestureListener;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SingleGameActivity extends Activity implements OnClickListener {
-	private static final String 	TAG = "WSSinglePlayer";
+public class SingleGameActivity extends Activity implements OnClickListener, OnGestureListener {
 	private static final int		REQUEST_RESULTS = 0;
 	
-
-	private Button				submitWord;
 	private Button				submitGame;
 	private TextView			wordsFound;
-	private String				aWord = "";
 	private WordSlamApplication wordSlamApplication;
-	//private int				possiblePoints;
-	//private int				totalPoints;
+	private Vector<GridButton> selectedButtons = new Vector<GridButton>();
 	
-	
-	
+	//delta values used to determine next valid grid button
+	private int deltaX;
+    private int deltaY;
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        setContentView(R.layout.grid);
         wordSlamApplication = (WordSlamApplication)getApplicationContext();
 		
-        //setContentView(R.layout.processing);
-        // any processing work?
+        //setup gesture view
+        GestureOverlayView gestures = (GestureOverlayView) findViewById(R.id.gestures);
+        gestures.addOnGestureListener(this);
         
-        setContentView(R.layout.grid);
         submitGame = (Button) findViewById(R.id.btnSubmitGame);
         submitGame.setOnClickListener(this);
-        submitWord = (Button) findViewById(R.id.btnSubmitWord);
-        submitWord.setOnClickListener(this);
         wordsFound = (TextView) findViewById(R.id.tvWordsFound);
-        wordsFound.setMovementMethod(new ScrollingMovementMethod());
+
+        
+       // wordsFound.setMovementMethod(ScrollingMovementMethod.getInstance());
+        Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
+        wordsFound.setTypeface(tf);
+
         
         // For each button on game board, set its letter, connect the listener,
         // and set its x and y coordinates.
 		int btnNum = 1;
-		for (int x = 0; x < 5; ++x) {
-			for (int y = 0; y < 5; ++y) {
+		for (int y = 0; y < 5; ++y) {
+			for (int x = 0; x < 5; ++x) {
 				String btnId = "GridButton" + btnNum;
 				int resId = getResources().getIdentifier(btnId, "id", "psu.se.wordslam");
 				GridButton btn = (GridButton) findViewById(resId);
 				char ch = wordSlamApplication.GetGame().GetGrid().GetCharacterAtPosition(x, y);
-				//char ch = wordSlamApplication.GetGame().GetGrid().GetCharacterAtPosition((i-1) % 5, (i-1)/5);
 				btn.setText(Character.toString(ch));
+		        //btn.setTypeface(tf);
 				btn.setOnClickListener(this);
 				btn.setX(x);	// set button's x coord. on board
 				btn.setY(y);	// set button's y coord. on board
 				++btnNum;
-				Log.d(TAG, "Button id: " + btnId + ", (" + x + "," + y + ")");
 			}
 		}
     }
@@ -83,40 +88,10 @@ public class SingleGameActivity extends Activity implements OnClickListener {
 						ResultsActivity.class);
 	    		startActivityForResult(resultsIntent, REQUEST_RESULTS);
 	    		break;
-	    	case R.id.btnSubmitWord:
-	    		//Toast.makeText(SingleGameActivity.this, aWord.toLowerCase(), 
-    				//	Toast.LENGTH_SHORT).show();
-	    		if (wordSlamApplication.dictionary_search(aWord.toLowerCase())) {
-	    			Toast.makeText(SingleGameActivity.this, "It's a Word!", 
-	    					Toast.LENGTH_SHORT).show();
-	    			wordsFound.append(aWord + "\n"); // add to textview
-	    		}
-	    		else{
-	    			Toast.makeText(SingleGameActivity.this, "Oops, not a word...", Toast.LENGTH_SHORT).show();
-	    		}
-	    		aWord = "";		// reset "aWord"
-	    		// clear all pressed buttons
-	    		resetButtons();
-	    		break;
-			default:			// a GridButton
-				// button
-				GridButton btn = (GridButton) findViewById(v.getId());
-				aWord = aWord.concat((String) btn.getText()); // add letter to word
     	}
 				
     }
-
     
-    // Reset any pressed buttons (orange) to default drawable (grey)
-    private void resetButtons() {
-    	for (int i = 1; i < 26; ++i) {
-    		String btnId = "GridButton" + i;
-			int resId = getResources().getIdentifier(btnId, "id", "psu.se.wordslam");
-			GridButton btn = (GridButton) findViewById(resId);
-			if (btn.isClicked())
-				btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_default_normal));
-    	}
-    }
     
     
     @Override
@@ -125,5 +100,105 @@ public class SingleGameActivity extends Activity implements OnClickListener {
     	setResult(Activity.RESULT_OK, returnIntent);
         finish();	// return to MainMenuActivity
     }
+
+    
+    
+    @Override
+	public void onGesture(GestureOverlayView overlay, MotionEvent event) {
+		GridButton temp = this.GetButton((int)event.getRawX(), (int)event.getRawY());
+		if(temp != null)
+		{
+			if(!selectedButtons.contains(temp))
+			{
+				if(selectedButtons.size() == 1)
+				{
+					//this is the second button - can set direction
+					deltaX = selectedButtons.get(0).x - temp.x;
+					deltaY = selectedButtons.get(0).y - temp.y;
+					
+					//Ensure we are not moving backwards
+					if(deltaX > 0)
+						return;
+				}
+				else
+				{
+					 //compare to last one
+					 int tempX = selectedButtons.get(selectedButtons.size()-1).x - temp.x;
+					 int tempY = selectedButtons.get(selectedButtons.size()-1).y - temp.y;
+					 
+					 //Ensure we are on the same path
+					 if(tempX != deltaX || tempY != deltaY)
+						 return;
+				}
+				temp.SetActive();
+				selectedButtons.add(temp);
+			}
+		}
+	}
+
+	@Override
+	public void onGestureEnded(GestureOverlayView overlay, MotionEvent event) {
+		String word = "";
+		for(GridButton btn : this.selectedButtons)
+		{
+			btn.SetInactive();
+			word += btn.getText();
+		}
+		//Check word
+		if (wordSlamApplication.dictionary_search(word.toLowerCase())) {
+			Toast.makeText(SingleGameActivity.this, "It's a Word!", 
+					Toast.LENGTH_SHORT).show();
+			wordsFound.append(word + "\n"); // add to textview
+			wordSlamApplication.m_Game.addFoundWord(word); // add to game
+		}
+		else{
+			Toast.makeText(SingleGameActivity.this, "Oops, not a word...", Toast.LENGTH_SHORT).show();
+		}
+	}
 	
+	private GridButton GetButton(int xPos, int yPos)
+	{
+		int btnNum = 1;
+		Rect rect = new Rect();
+		int[] pos = {0,0};
+		
+	    for (int x = 0; x < 5; ++x) {
+			for (int y = 0; y < 5; ++y) {
+				String btnId = "GridButton" + btnNum;
+				int resId = getResources().getIdentifier(btnId, "id", "psu.se.wordslam");
+				GridButton btn = (GridButton) findViewById(resId);
+				
+				btn.getLocationInWindow(pos);
+				//shrink box for better detection
+				rect.left = pos[0] + 20;
+				rect.top = pos[1] + 20;
+				rect.bottom = rect.top + btn.getHeight() - 40;
+				rect.right = rect.left + btn.getWidth() - 40;
+				
+				if(rect.intersects(xPos, yPos, xPos+5, yPos+5))
+				{
+					return btn;
+				}
+				btnNum++;
+			}
+	    }
+	    return null;
+	}
+	
+	@Override
+	public void onGestureStarted(GestureOverlayView overlay, MotionEvent event) {
+		GridButton temp = this.GetButton((int)event.getRawX(), (int)event.getRawY());
+		if(temp != null)
+		{
+			selectedButtons.clear();
+			temp.SetActive();
+			selectedButtons.add(temp);
+		}
+	}
+
+	@Override
+	public void onGestureCancelled(GestureOverlayView overlay, MotionEvent event) {
+		//have to implement this method
+		return;
+	}
 }
