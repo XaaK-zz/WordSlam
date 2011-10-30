@@ -159,9 +159,14 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 					deltaX = selectedButtons.get(0).x - temp.x;
 					deltaY = selectedButtons.get(0).y - temp.y;
 					
-					//Ensure we are not moving backwards
+					//Ensure we are not moving backwards and that we did not "skip" a button by moving too fast
 					if(deltaX > 0)
 						return;
+					else if(deltaX < -1)
+						return;
+					else if(java.lang.Math.abs(deltaY) > 1)
+						return;
+					
 				}
 				else if(selectedButtons.size() > 0)
 				{
