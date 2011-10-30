@@ -14,13 +14,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.gesture.GestureOverlayView;
 import android.gesture.GestureOverlayView.OnGestureListener;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +41,45 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 	private int deltaX;
     private int deltaY;
     
+    //used to track timer values for animation of timer UI
+    private long startTime;
+    private long gameTime;
+    
+    //used to animate timer bar
+    private Handler mHandler = new Handler();
+    
+    //timer event code
+    private Runnable mUpdateTimeTask = new Runnable() {
+    	   public void run() {
+    	       final long start = startTime;
+    	       long currentLength = System.currentTimeMillis() - start;
+    	       long remainingTime = gameTime - currentLength;
+    	       float x = (float)remainingTime / (float)gameTime;
+    	       
+    	       if(remainingTime > 0)
+    	       {
+    	    	   //still have time remaining - update UI
+    	    	   LinearLayout timerUI = (LinearLayout) findViewById(R.id.timerUI);
+    	    	   timerUI.getLayoutParams().height =  (int) (x * 400);
+    	    	   
+    	    	   //update color
+    	    	   if(remainingTime < 15000)
+    	    	      timerUI.setBackgroundColor(Color.RED);
+    	    	   else if(remainingTime < 30000)
+    	    		   timerUI.setBackgroundColor(Color.YELLOW);
+   	    	   
+    	    	   timerUI.requestLayout();
+    	    	   timerUI.invalidate();
+    	    	   mHandler.postDelayed(this, 500);
+    	       }
+    	       else
+    	       {
+    	    	   //TODO
+    	    	   //NEED to push user to final screen
+    	       }
+    	   }
+    	};
+    	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +113,16 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 				btn.setY(y);	// set button's y coord. on board
 				++btnNum;
 			}
+		}
+		
+		gameTime = wordSlamApplication.GetGame().GetTotalGameTime();
+		
+		if(gameTime > 0)
+		{
+			//setup timer handler
+			startTime = System.currentTimeMillis();
+			mHandler.removeCallbacks(mUpdateTimeTask);
+			mHandler.postDelayed(mUpdateTimeTask, 500);
 		}
     }
     
@@ -109,7 +163,7 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 					if(deltaX > 0)
 						return;
 				}
-				else
+				else if(selectedButtons.size() > 0)
 				{
 					 //compare to last one
 					 int tempX = selectedButtons.get(selectedButtons.size()-1).x - temp.x;
@@ -133,6 +187,9 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 			btn.SetInactive();
 			word += btn.getText();
 		}
+		//close out selected buttons
+		selectedButtons.clear();
+		
 		//Check word
 		if (wordSlamApplication.dictionary_search(word.toLowerCase())) {
 			Toast.makeText(SingleGameActivity.this, "It's a Word!", 
@@ -187,6 +244,7 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 	@Override
 	public void onGestureCancelled(GestureOverlayView overlay, MotionEvent event) {
 		//have to implement this method
+		selectedButtons.clear();
 		return;
 	}
 }

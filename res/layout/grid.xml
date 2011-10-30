@@ -9,7 +9,7 @@
 		<LinearLayout
 				android:id="@+id/linearLayout8"
 				android:layout_height="fill_parent"
-				android:layout_width="fill_parent">
+				android:layout_width="fill_parent" android:weightSum="1">
 				<LinearLayout
 						android:gravity="left"
 						android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
 				<android.gesture.GestureOverlayView
 				    xmlns:android="http://schemas.android.com/apk/res/android"
 				    android:id="@+id/gestures"
-				    android:layout_width="fill_parent"
+				    android:layout_width="260dp"
 				    android:layout_height="fill_parent"
 				    android:eventsInterceptionEnabled="true"
 				    android:orientation="vertical"
@@ -132,5 +132,10 @@
 							</LinearLayout>
 					</LinearLayout>
 				</android.gesture.GestureOverlayView>
+				<LinearLayout 
+					android:id="@+id/timerUI" 
+					android:layout_width="42dp" android:background="#00FF00" 
+					android:layout_gravity="bottom"  android:layout_height="250dp">
+				</LinearLayout>
 		</LinearLayout>
 </LinearLayout>
