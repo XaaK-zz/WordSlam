@@ -60,7 +60,7 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 	    		startActivityForResult(gameIntent, REQUEST_SPG);
 				break;
 			case R.id.btnNewTwoGame:
-				wordSlamApplication.CreateNewGame(GameType.MultiPlayer);
+				//wordSlamApplication.CreateNewGame(GameType.MultiPlayer);
 				// STUB
 				break;
 			//case R.id.btnQuit:

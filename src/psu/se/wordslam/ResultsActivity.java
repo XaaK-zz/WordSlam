@@ -13,8 +13,6 @@ import psu.se.wordslam.model.WordSlamApplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.style.BackgroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -40,7 +38,7 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		tvFoundWords = (TextView) findViewById(R.id.tvResults);
 		tvAllWords = (TextView) findViewById(R.id.tvResultsMissed);
 		
-		Spannable str = tvAllWords.getEditableText();
+		
 
 		// for each string in found words
 		ArrayList<String> foundWords = wordSlamApplication.m_Game.getFoundWords();
@@ -48,18 +46,7 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		for (String s: foundWords) {
 			tvFoundWords.append(s + "\n"); // add to textview
 		}
-		/*
-		 * ArrayList<String> allWords = wordSlamApplication.m_Game.getFoundWords();
-		 * int index;
-		 * for (String s: allWords) {
-		 * 		tvAllWords.append(s + "\n");
-		 * 		if (!foundWords.contains(s)) {	// highlight word
-		 * 			str.setSpan(new BackgroundColorSpan(0xFFFFFF00),index + 1, 
-		 * 					index+s.size(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		 * 		}
-		 * 		index += s.size();
-		 * }
-		 */
+		
     }
     
     @Override

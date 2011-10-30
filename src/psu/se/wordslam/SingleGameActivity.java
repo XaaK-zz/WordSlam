@@ -212,7 +212,7 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 			wordsFound.append(word + "\n"); // add to textview
 			wordSlamApplication.m_Game.addFoundWord(word); // add to game
 		}
-		else{
+		else {
 			Toast.makeText(SingleGameActivity.this, "Oops, not a word...", Toast.LENGTH_SHORT).show();
 		}
 	}
