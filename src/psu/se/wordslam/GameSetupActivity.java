@@ -45,7 +45,7 @@ public class GameSetupActivity extends Activity implements OnClickListener {
 		WordSlamApplication wordSlamApplication = (WordSlamApplication)getApplicationContext();
 		Spinner spinner = (Spinner) findViewById(R.id.spinnerMinutes);
 		wordSlamApplication.CreateNewGame(GameType.SinglePlayer);
-		wordSlamApplication.SetGameTimer(spinner.getSelectedItemPosition() * 1000);
+		wordSlamApplication.SetGameTimer(spinner.getSelectedItemPosition() * 1000 * 60);
 		Intent gameIntent = new Intent(this, SingleGameActivity.class);
 		startActivityForResult(gameIntent, 0);
     }
