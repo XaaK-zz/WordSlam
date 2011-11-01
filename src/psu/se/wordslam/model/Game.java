@@ -10,6 +10,8 @@ public class Game
 	private LetterGrid 			m_Grid;
 	private ArrayList<String> 	wordsFound;
 	private ArrayList<String> 	allWords;
+	private int 				score;
+	private boolean				bonus;
 	
 	private GameType m_GameType;
 	
@@ -152,6 +154,24 @@ public class Game
 	public void addFoundWord(String word)
 	{
 		wordsFound.add(word);	
+	}
+	
+	
+	/**
+	 * Retrieval method for player's score
+	 * @return score 
+	 */
+	public int getScore() {
+		return score;
+	}
+	
+	
+	/**
+	 * Retrieval method determining if player scored a bonus
+	 * @return bonus 
+	 */
+	public boolean hasBonus() {
+		return bonus;
 	}
 	
 }

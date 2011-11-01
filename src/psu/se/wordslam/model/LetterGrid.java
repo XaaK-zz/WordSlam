@@ -1,7 +1,5 @@
 package psu.se.wordslam.model;
 
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.Vector;
 
 import android.graphics.Point;
@@ -13,7 +11,7 @@ import android.graphics.Point;
 public class LetterGrid 
 {
 	private char[][] m_gridData;
-	private static ArrayList<Character> alphabet;
+	//private static ArrayList<Character> alphabet;
 	
 	/**
 	 * Basic Constructor

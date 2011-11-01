@@ -10,13 +10,16 @@
 				android:id="@+id/linearLayout8"
 				android:layout_height="fill_parent"
 				android:layout_width="fill_parent"
-				android:weightSum="1" android:gravity="center">
+				android:weightSum="1"
+				android:gravity="center">
 				<LinearLayout
 						android:gravity="left"
-						android:layout_height="wrap_content"
 						android:id="@+id/linearLayout7"
 						android:layout_marginRight="10dp"
-						android:orientation="vertical" android:layout_width="160dp">
+						android:orientation="vertical"
+						android:layout_width="160dp"
+						android:layout_height="match_parent"
+						android:weightSum="1">
 						<TextView
 								android:layout_height="wrap_content"
 								android:layout_width="fill_parent"
@@ -26,19 +29,29 @@
 								android:id="@+id/tvGridTitle"
 								android:textSize="20dp"></TextView>
 
-						<TextView
-								android:layout_width="fill_parent"
-								android:layout_height="200dp"
-								android:id="@+id/tvWordsFound"
-								android:scrollbars="vertical"
-								android:textSize="20dp"
+						<ScrollView
+								android:id="@+id/ScrollView03"
+								android:layout_width="match_parent"
+								android:fillViewport="true"
 								android:scrollbarAlwaysDrawVerticalTrack="true"
-								android:scrollbarStyle="insideOverlay" android:paddingLeft="5dp" android:gravity="center"></TextView>
+								android:layout_height="175dp"
+								android:layout_weight="0.93">
+								<TextView
+										android:layout_width="fill_parent"
+										android:layout_height="200dp"
+										android:id="@+id/tvWordsFound"
+										android:textSize="20dp"
+										android:scrollbars="vertical"
+										android:scrollbarStyle="insideOverlay"
+										android:paddingLeft="5dp"
+										android:gravity="center"></TextView>
+						</ScrollView>
 						<LinearLayout
 								android:id="@+id/linearLayout9"
 								android:layout_width="match_parent"
+								android:gravity="center"
 								android:layout_height="wrap_content"
-								android:gravity="center">
+								android:layout_marginTop="5dp">
 								<Button
 										android:text="@string/Submit"
 										android:layout_gravity="center"
@@ -56,7 +69,8 @@
 						android:eventsInterceptionEnabled="true"
 						android:orientation="vertical"
 						android:gestureStrokeAngleThreshold="0.0"
-						android:gestureStrokeSquarenessThreshold="0.0" android:layout_width="wrap_content">
+						android:gestureStrokeSquarenessThreshold="0.0"
+						android:layout_width="wrap_content">
 						<LinearLayout
 								android:layout_height="fill_parent"
 								android:id="@+id/linearLayout6"
@@ -174,7 +188,9 @@
 						android:layout_width="42dp"
 						android:background="#00FF00"
 						android:layout_gravity="bottom"
-						android:layout_height="250dp" android:keepScreenOn="false" android:layout_marginLeft="5dp">
+						android:layout_height="250dp"
+						android:keepScreenOn="false"
+						android:layout_marginLeft="5dp">
 				</LinearLayout>
 		</LinearLayout>
 </LinearLayout>

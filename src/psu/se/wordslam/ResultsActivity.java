@@ -35,8 +35,7 @@ public class ResultsActivity extends Activity implements OnClickListener {
         wordSlamApplication = (WordSlamApplication)getApplicationContext();
         
 		mainMenu = (Button) findViewById(R.id.btnMainMenu);
-		if (mainMenu != null)
-			mainMenu.setOnClickListener(this);
+		mainMenu.setOnClickListener(this);
 		tvFoundWords = (TextView) findViewById(R.id.tvWordsFoundList);
 		tvMissedWords = (TextView) findViewById(R.id.tvResultsMissedList);
 		
@@ -56,7 +55,19 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		for (String s: foundWords) {
 			tvFoundWords.append(s + "\n"); // add to textview
 		}
-		
+		// Add the following once getAllWords() is implemented
+		/*
+		// remove all found words from "allWords" list to get missed words
+		ArrayList<String> allWords = wordSlamApplication.m_Game.getAllWords();
+		for (String s: foundWords) {
+			allWords.remove(s);
+		}
+		// If all words on the board were found by the player, signal bonus
+		if (allWords.isEmpty()) {
+			TextView tvBonus = (TextView) findViewById(R.id.tvBonus);
+			tvBonus.setBackgroundResource(R.drawable.bonus);
+		}
+		*/
     }
     
     @Override
