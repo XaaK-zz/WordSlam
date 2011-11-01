@@ -12,23 +12,21 @@ import psu.se.wordslam.model.Game.GameType;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 // NOTE: switching emulator to landscape mode: fn+ctrl+f11
 //
 // Main Menu -> Game Setup -> Game Board -> Final results
 public class MainMenuActivity extends Activity implements OnClickListener {
-	private static final String 		TAG = "WSMainMenu"; // for logging
-	private static final int			REQUEST_SPG = 0; // single player game
-	private static final int			REQUEST_TPG = 1; // two player game
-	
 	private Button 		btnNewOneGame;
 	private Button		btnNewTwoGame;
 	// considered bad practice to have quit button...
-	//private Button		btnQuit;
+
 	
 	
 	/** Called when the activity is first created. */
@@ -41,8 +39,13 @@ public class MainMenuActivity extends Activity implements OnClickListener {
         btnNewOneGame.setOnClickListener(this);
         btnNewTwoGame = (Button) findViewById(R.id.btnNewTwoGame);
         btnNewTwoGame.setOnClickListener(this);
-        //btnQuit = (Button) findViewById(R.id.btnQuit);
-        //btnQuit.setOnClickListener(this);
+        
+     // set font
+		Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
+		TextView mainMenuTitle = (TextView) findViewById(R.id.tvMainMenu);
+		mainMenuTitle.setTypeface(tf);
+		btnNewOneGame.setTypeface(tf);
+		btnNewTwoGame.setTypeface(tf);
         
     }
     
@@ -64,22 +67,7 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 				//wordSlamApplication.CreateNewGame(GameType.MultiPlayer);
 				// STUB
 				break;
-			//case R.id.btnQuit:
-				//finish();
 		}
     }
-/*	
-	
-	// Reset main menu
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		setContentView(R.layout.main);
-        
-        btnNewOneGame = (Button) findViewById(R.id.btnNewOneGame);
-        btnNewOneGame.setOnClickListener(this);
-        btnNewTwoGame = (Button) findViewById(R.id.btnNewTwoGame);
-        btnNewTwoGame.setOnClickListener(this);
-        btnQuit = (Button) findViewById(R.id.btnQuit);
-        btnQuit.setOnClickListener(this);
-	}*/
+
 }

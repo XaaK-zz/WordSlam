@@ -35,7 +35,7 @@
 										android:scrollbars="vertical"
 										android:gravity="center"
 										android:textColor="#339933"
-										android:id="@+id/tvWordsFoundList" android:layout_height="fill_parent" android:layout_marginLeft="4dp" android:layout_marginRight="4dp"></TextView>
+										android:id="@+id/tvWordsFoundList" android:layout_height="fill_parent" android:layout_marginLeft="4dp" android:layout_marginRight="4dp" android:scrollbarStyle="insideOverlay" android:scrollbarAlwaysDrawVerticalTrack="true"></TextView>
 						</ScrollView>
 						<LinearLayout android:gravity="center" android:layout_width="fill_parent" android:layout_weight="1" android:id="@+id/linearLayout4" android:layout_height="30dp" android:layout_marginTop="5dp">
 							<TextView android:id="@+id/textView1" android:layout_width="wrap_content" android:text="@string/score" android:layout_marginRight="5dp" android:layout_height="wrap_content"></TextView>
@@ -68,10 +68,9 @@
 										android:background="@drawable/back"
 										android:scrollbars="vertical"
 										android:scrollbarStyle="insideOverlay"
-										android:padding="5dp"
 										android:gravity="center"
 										android:textColor="#CC0000"
-										android:id="@+id/tvResultsMissedList" android:layout_height="fill_parent" android:layout_marginLeft="4dp" android:layout_marginRight="4dp"></TextView>
+										android:id="@+id/tvResultsMissedList" android:layout_height="fill_parent" android:layout_marginLeft="4dp" android:layout_marginRight="4dp" android:scrollbarAlwaysDrawVerticalTrack="true"></TextView>
 						</ScrollView>
 						<Button android:id="@+id/btnMainMenu" android:text="@string/MainMenu" android:layout_width="wrap_content" android:textSize="10dp" android:gravity="center" android:focusable="true" android:layout_height="wrap_content" android:layout_marginTop="10dp"></Button>
 				</LinearLayout>

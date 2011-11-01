@@ -99,7 +99,7 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
         wordsFound = (TextView) findViewById(R.id.tvWordsFound);
 
         
-       // wordsFound.setMovementMethod(ScrollingMovementMethod.getInstance());
+        // set font
         Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
         wordsFound.setTypeface(tf);
         TextView tv = (TextView) findViewById(R.id.tvGridTitle);
@@ -116,7 +116,7 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 				GridButton btn = (GridButton) findViewById(resId);
 				char ch = wordSlamApplication.GetGame().GetGrid().GetCharacterAtPosition(x, y);
 				btn.setText(Character.toString(ch));
-		        //btn.setTypeface(tf);
+		        btn.setTypeface(tf);
 				btn.setOnClickListener(this);
 				btn.setX(x);	// set button's x coord. on board
 				btn.setY(y);	// set button's y coord. on board

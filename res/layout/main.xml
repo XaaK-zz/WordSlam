@@ -4,70 +4,18 @@
 		android:layout_height="match_parent"
 		android:orientation="vertical"
 		android:layout_width="match_parent"
-		android:weightSum="1">
-		<LinearLayout
-				android:gravity="center"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/linearLayout1"
-				android:layout_weight="0.24"
-				android:paddingTop="40dp">
-				<TextView
-						android:layout_height="wrap_content"
-						android:textSize="30dp"
-						android:id="@+id/textView1"
-						android:layout_width="wrap_content"
-						android:text="@string/MainMenu"
-						android:textStyle="bold"></TextView>
+		android:weightSum="1" android:padding="5dp">
+    <LinearLayout android:id="@+id/linearLayout2" android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_weight="0" android:gravity="center">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/MainMenu" android:padding="10dp" android:id="@+id/tvMainMenu" android:textSize="25dp"></TextView>
+    </LinearLayout>
+		<LinearLayout android:id="@+id/linearLayout1" android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="left|center_vertical" android:layout_weight=".6">
+			<ImageView android:id="@+id/imageView1" android:src="@drawable/stickman" android:adjustViewBounds="true" android:scaleType="fitXY" android:layout_height="wrap_content" android:layout_width="wrap_content"></ImageView>
+			<Button android:text="@string/NewOneGame" android:id="@+id/btnNewOneGame" android:maxHeight="30dp" android:layout_height="wrap_content" android:gravity="center" android:layout_width="wrap_content"></Button>
 		</LinearLayout>
-		<LinearLayout
-				android:gravity="center"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/linearLayout2"
-				android:paddingTop="20dp"
-				android:layout_weight="0.24"
-				android:paddingBottom="20dp"
-				android:orientation="vertical"
-				android:paddingLeft="50dp"
-				android:paddingRight="50dp">
-				<Button
-						android:text="@string/NewOneGame"
-						android:id="@+id/btnNewOneGame"
-						android:layout_width="fill_parent"
-						android:layout_height="wrap_content"
-						android:maxHeight="30dp" android:gravity="center"></Button>
-				<Button
-						android:text="@string/NewTwoGame"
-						android:id="@+id/btnNewTwoGame"
-						android:layout_height="wrap_content"
-						android:layout_width="fill_parent"
-						android:layout_marginTop="10dp"
-						android:maxHeight="30dp"
-						android:gravity="center"></Button>
-				<Button
-						android:id="@+id/btnQuit"
-						android:layout_height="wrap_content"
-						android:layout_width="fill_parent"
-						android:layout_marginTop="10dp"
-						android:text="@string/Quit"
-						android:maxHeight="30dp"></Button>
-		</LinearLayout>
-		<LinearLayout
-				android:layout_width="match_parent"
-				android:id="@+id/linearLayout3"
-				android:paddingLeft="40dp"
-				android:paddingRight="40dp"
-				android:layout_height="98dp"
-				android:paddingTop="20dp"
-				android:gravity="center">
-				<ImageView
-						android:src="@drawable/abc"
-						android:id="@+id/imageView1"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:adjustViewBounds="true"
-						android:scaleType="fitXY"></ImageView>
+		<LinearLayout android:id="@+id/linearLayout3" android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="right|center_vertical" android:layout_weight=".6">
+			<Button android:layout_marginTop="10dp" android:text="@string/NewTwoGame" android:id="@+id/btnNewTwoGame" android:maxHeight="30dp" android:layout_height="wrap_content" android:gravity="center" android:layout_width="wrap_content"></Button>
+			<ImageView android:id="@+id/imageView2" android:layout_height="wrap_content" android:src="@drawable/stickmanleft" android:layout_width="wrap_content" android:adjustViewBounds="true" android:scaleType="fitXY"></ImageView>
+			<ImageView android:id="@+id/imageView3" android:layout_height="wrap_content" android:src="@drawable/stickmanright" android:layout_width="wrap_content" android:adjustViewBounds="true" android:scaleType="fitXY"></ImageView>
 		</LinearLayout>
 
 </LinearLayout>

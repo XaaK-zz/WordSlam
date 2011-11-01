@@ -44,7 +44,7 @@
 										android:scrollbars="vertical"
 										android:scrollbarStyle="insideOverlay"
 										android:paddingLeft="5dp"
-										android:gravity="center"></TextView>
+										android:gravity="center" android:scrollbarAlwaysDrawVerticalTrack="true"></TextView>
 						</ScrollView>
 						<LinearLayout
 								android:id="@+id/linearLayout9"
