@@ -19,7 +19,7 @@ public class WordSlamApplication extends android.app.Application {
 	private static WordSlamApplication 	singleton;
 	public HashSet<String> 				dic;	
 	public static AssetManager 			assetManager;
-	public static ArrayList<Character> 	easyAlphabet;
+	//public static ArrayList<Character> 	easyAlphabet;
 	private Resources	 				resources; 
 	public String 						dummy;
 	
@@ -49,7 +49,7 @@ public class WordSlamApplication extends android.app.Application {
 		
 		super.onCreate();
 		singleton = this;	
-		easyAlphabet = Alphabet.buildEasyAlphabet();
+		//easyAlphabet = Alphabet.buildEasyAlphabet();
 	}
 	
 	/**

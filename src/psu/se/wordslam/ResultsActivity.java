@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import psu.se.wordslam.model.WordSlamApplication;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,7 +22,7 @@ import android.widget.TextView;
 public class ResultsActivity extends Activity implements OnClickListener {
 	private Button				mainMenu;
 	private TextView			tvFoundWords;
-	private TextView			tvAllWords;
+	private TextView			tvMissedWords;
 	private WordSlamApplication wordSlamApplication;
 
 
@@ -34,10 +35,19 @@ public class ResultsActivity extends Activity implements OnClickListener {
         wordSlamApplication = (WordSlamApplication)getApplicationContext();
         
 		mainMenu = (Button) findViewById(R.id.btnMainMenu);
-		mainMenu.setOnClickListener(this);
-		tvFoundWords = (TextView) findViewById(R.id.tvResults);
-		tvAllWords = (TextView) findViewById(R.id.tvResultsMissed);
+		if (mainMenu != null)
+			mainMenu.setOnClickListener(this);
+		tvFoundWords = (TextView) findViewById(R.id.tvWordsFoundList);
+		tvMissedWords = (TextView) findViewById(R.id.tvResultsMissedList);
 		
+		// set font
+		Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
+		tvFoundWords.setTypeface(tf);
+		tvMissedWords.setTypeface(tf);
+		TextView titleFound = (TextView) findViewById(R.id.tvWordsFoundTitle);
+		titleFound.setTypeface(tf);
+		TextView titleMissed = (TextView) findViewById(R.id.tvWordsMissedTitle);
+		titleMissed.setTypeface(tf);
 		
 
 		// for each string in found words
@@ -51,7 +61,7 @@ public class ResultsActivity extends Activity implements OnClickListener {
     
     @Override
 	public void onClick(View v) {
-    	Intent intent = new Intent(this,MainMenuActivity.class);
+    	Intent intent = new Intent(this, MainMenuActivity.class);
 		startActivity(intent);
     }
 

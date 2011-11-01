@@ -6,11 +6,11 @@
     <string name="NewTwoGame">New Two Player Game  </string>
     <string name="Quit">Quit</string>
     <string name="MainMenu">Main Menu</string>
-    <string name="WordsFound"><u>Words Found</u></string>
+    <string name="WordsFound"><u>Found Words</u></string>
     <string name="Loading">Loading New Game...</string>
     <string name="Submit">Submit</string>
-    <string name="ResultsWordsFound">Found Words</string>
-    <string name="ResultsWordsMissed">Missed Words</string>
+    <string name="ResultsWordsFound">Words Found!</string>
+    <string name="ResultsWordsMissed">Words Missed</string>
     <string-array name="game_times">
         <item>No limit</item>
         <item>1 minute</item>
@@ -19,5 +19,4 @@
         <item>4 minutes</item>
         <item>5 minutes</item>
     </string-array>
-    <string name="isWord">Word?</string>
 </resources>

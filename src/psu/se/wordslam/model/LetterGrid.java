@@ -24,20 +24,21 @@ public class LetterGrid
 	}
 	
 	/**
-	 * Fills the board with random characters drawn from easyAlphabet
+	 * Fills the board with random characters returned by static class Alphabet
 	 */
 	public void GenerateRandomBoard()
 	{
-		Random oRandom = new Random();
-		int randomIndex;
+		//Random oRandom = new Random();
+		//int randomIndex;
 		
 		for(int y=0;y<5;y++)
 		{
 			for(int x=0;x<5;x++)
 			{
-				randomIndex = oRandom.nextInt(WordSlamApplication.easyAlphabet.size());
-				this.m_gridData[x][y] = (char)WordSlamApplication.easyAlphabet.get(randomIndex);
+				//randomIndex = oRandom.nextInt(WordSlamApplication.easyAlphabet.size());
+				//this.m_gridData[x][y] = (char)WordSlamApplication.easyAlphabet.get(randomIndex);
 				//this.m_gridData[x][y] = (char)(oRandom.nextInt(26) + 'A');
+				this.m_gridData[x][y] = Alphabet.getLetter();
 			}
 		}
 	}

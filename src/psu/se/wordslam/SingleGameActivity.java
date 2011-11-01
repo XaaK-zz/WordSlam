@@ -81,6 +81,7 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
     	   }
     	};
     	
+    	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,8 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
        // wordsFound.setMovementMethod(ScrollingMovementMethod.getInstance());
         Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
         wordsFound.setTypeface(tf);
+        TextView tv = (TextView) findViewById(R.id.tvGridTitle);
+        tv.setTypeface(tf);
 
         
         // For each button on game board, set its letter, connect the listener,
@@ -139,21 +142,22 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 			case R.id.btnSubmitGame:
 				Intent resultsIntent = new Intent(SingleGameActivity.this, 
 						ResultsActivity.class);
-	    		startActivityForResult(resultsIntent, REQUEST_RESULTS);
+	    		//startActivityForResult(resultsIntent, REQUEST_RESULTS);
+				startActivity(resultsIntent);
 	    		break;
     	}
 				
     }
     
     
-    
+/*    
     @Override
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	Intent returnIntent = new Intent();
     	setResult(Activity.RESULT_OK, returnIntent);
         finish();	// return to MainMenuActivity
     }
-
+*/
     
     
     @Override
