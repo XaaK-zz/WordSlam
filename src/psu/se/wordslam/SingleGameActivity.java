@@ -46,6 +46,18 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
     private long startTime;
     private long gameTime;
     
+    private Handler btnColorHandler = new Handler();
+    
+    private Runnable clearButtonTask = new Runnable() {
+    	public void run() {
+    		for(GridButton btn : SingleGameActivity.this.selectedButtons)
+			{
+				btn.SetInactive();
+			}
+    		SingleGameActivity.this.selectedButtons.clear();
+    	}
+    };
+    
     //used to animate timer bar
     private Handler mHandler = new Handler();
     
@@ -75,8 +87,10 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
     	       }
     	       else
     	       {
-    	    	   //TODO
-    	    	   //NEED to push user to final screen
+    	    	   	//NEED to push user to final screen
+    	    	   	Intent resultsIntent = new Intent(SingleGameActivity.this, 
+   						ResultsActivity.class);
+   	    			startActivity(resultsIntent);
     	       }
     	   }
     	};
@@ -206,18 +220,31 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 			btn.SetInactive();
 			word += btn.getText();
 		}
-		//close out selected buttons
-		selectedButtons.clear();
+		
 		
 		//Check word
 		if (wordSlamApplication.dictionary_search(word.toLowerCase())) {
-			Toast.makeText(SingleGameActivity.this, "It's a Word!", 
-					Toast.LENGTH_SHORT).show();
-			wordsFound.append(word + "\n"); // add to textview
-			wordSlamApplication.m_Game.addFoundWord(word); // add to game
+			if(!wordSlamApplication.m_Game.wordAlreadyFound(word.toLowerCase())) {
+				//Toast.makeText(SingleGameActivity.this, "Found a new Word!", 
+				//		Toast.LENGTH_SHORT).show();
+				for(GridButton btn : this.selectedButtons)
+				{
+					btn.SetCorrect();
+				}
+				btnColorHandler.removeCallbacks(this.clearButtonTask);
+				btnColorHandler.postDelayed(this.clearButtonTask, 500);
+				wordsFound.append(word + "\n"); // add to textview
+				wordSlamApplication.m_Game.addFoundWord(word.toLowerCase()); // add to game
+			}
 		}
 		else {
-			Toast.makeText(SingleGameActivity.this, "Oops, not a word...", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(SingleGameActivity.this, "Oops, not a word...", Toast.LENGTH_SHORT).show();
+			for(GridButton btn : this.selectedButtons)
+			{
+				btn.SetInCorrect();
+			}
+			btnColorHandler.removeCallbacks(this.clearButtonTask);
+			btnColorHandler.postDelayed(this.clearButtonTask, 500);
 		}
 	}
 	
@@ -255,6 +282,11 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 		GridButton temp = this.GetButton((int)event.getRawX(), (int)event.getRawY());
 		if(temp != null)
 		{
+			btnColorHandler.removeCallbacks(this.clearButtonTask);
+			for(GridButton btn : this.selectedButtons)
+			{
+				btn.SetInactive();
+			}
 			selectedButtons.clear();
 			temp.SetActive();
 			selectedButtons.add(temp);

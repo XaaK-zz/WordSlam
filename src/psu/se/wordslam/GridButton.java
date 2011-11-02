@@ -73,6 +73,16 @@ public class GridButton extends Button {
 		isClicked = false;
 	}
 	
+	public void SetCorrect()
+	{
+		this.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_correct));
+	}
+	
+	public void SetInCorrect()
+	{
+		this.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_incorrect));
+	}
+	
 	/*
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {

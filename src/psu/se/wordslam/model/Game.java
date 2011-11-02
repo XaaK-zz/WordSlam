@@ -156,6 +156,16 @@ public class Game
 		wordsFound.add(word);	
 	}
 	
+	/**
+	 * Utility method to check if a word already exists in the found list
+	 * @param word Word to check
+	 * @return True is the word is already in the found list.<br>
+	 * 			False otherwise
+	 */
+	public boolean wordAlreadyFound(String word)
+	{
+		return wordsFound.contains(word);
+	}
 	
 	/**
 	 * Retrieval method for player's score
