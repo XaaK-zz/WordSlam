@@ -82,15 +82,6 @@ public class WordSlamApplication extends android.app.Application {
 	{
 		return this.m_Game;
 	}
-	
-	/**
-	 * Placeholder.<br>
-	 * Starts the Game Timer (i.e. actual game start) 
-	 */
-	public void StartGameTimer()
-	{
-		this.m_Game.StartTimer();
-	}
 
 	public void dictionary_build()
 	{

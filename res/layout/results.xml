@@ -39,7 +39,7 @@
 						</ScrollView>
 						<LinearLayout android:gravity="center" android:layout_width="fill_parent" android:layout_weight="1" android:id="@+id/linearLayout4" android:layout_height="30dp" android:layout_marginTop="5dp">
 							<TextView android:id="@+id/textView1" android:layout_width="wrap_content" android:text="@string/score" android:layout_marginRight="5dp" android:layout_height="wrap_content"></TextView>
-							<TextView android:id="@+id/tvScore" android:layout_width="60dp" android:padding="2dp" android:background="@drawable/back" android:layout_height="25dp"></TextView>
+							<TextView android:id="@+id/tvScore" android:gravity="center_vertical|center_horizontal" android:layout_width="60dp" android:padding="2dp" android:background="@drawable/back" android:layout_height="25dp"></TextView>
 							<TextView android:id="@+id/tvBonus" android:layout_width="75dp" android:layout_height="35dp" android:layout_marginLeft="5dp" android:background="@drawable/bonus2"></TextView>
 						</LinearLayout>
 				</LinearLayout>

@@ -48,7 +48,11 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		TextView titleMissed = (TextView) findViewById(R.id.tvWordsMissedTitle);
 		titleMissed.setTypeface(tf);
 		
-
+		TextView score = (TextView) findViewById(R.id.tvScore);
+		score.setTypeface(tf);
+		Integer x = wordSlamApplication.m_Game.getScore();
+		score.setText(x.toString());
+		
 		// for each string in found words
 		ArrayList<String> foundWords = wordSlamApplication.m_Game.getFoundWords();
 		// write to results screen

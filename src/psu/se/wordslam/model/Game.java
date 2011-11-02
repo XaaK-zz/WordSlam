@@ -31,15 +31,7 @@ public class Game
 		this.allWords = new ArrayList<String>();
 		// get all words from dictionary and add to allWords list
 		
-		char[][] test =  
-		{
-			{'P','Q','E','T','T'},
-			{'K','Z','I','Z','O'},
-			{'K','M','I','M','P'},
-			{'H','N','O','T','E'},
-			{'R','O','I','B','X'}
-		};
-		//this.m_Grid.Fill(test);
+		this.score = 0;
 		this.m_TotalGameTimeInMS = 5000;
 		this.m_TotalGameTimeInMS = 5000;
 	}
@@ -115,17 +107,6 @@ public class Game
 		SinglePlayer,
 		MultiPlayer
 	}
-
-	public void StartTimer() 
-	{
-		//TODO
-	}
-	
-	public void PauseTimer()
-	{
-		//TODO
-	}
-	
 	
 	/**
 	 * Retrieval method for all words found by player
@@ -154,6 +135,9 @@ public class Game
 	public void addFoundWord(String word)
 	{
 		wordsFound.add(word);	
+		
+		//Update Score
+		this.score += word.length();
 	}
 	
 	/**
