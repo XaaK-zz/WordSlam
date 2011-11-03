@@ -30,6 +30,7 @@ public class Game
 		this.wordsFound = new ArrayList<String>();
 		this.allWords = new ArrayList<String>();
 		// get all words from dictionary and add to allWords list
+		this.allWords = this.m_Grid.getValidWordsinGrid(WordSlamApplication.getInstance().dic);
 		
 		this.score = 0;
 		this.m_TotalGameTimeInMS = 5000;

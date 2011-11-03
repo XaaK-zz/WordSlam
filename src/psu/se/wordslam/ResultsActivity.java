@@ -60,7 +60,7 @@ public class ResultsActivity extends Activity implements OnClickListener {
 			tvFoundWords.append(s + "\n"); // add to textview
 		}
 		// Add the following once getAllWords() is implemented
-		/*
+		
 		// remove all found words from "allWords" list to get missed words
 		ArrayList<String> allWords = wordSlamApplication.m_Game.getAllWords();
 		for (String s: foundWords) {
@@ -70,8 +70,17 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		if (allWords.isEmpty()) {
 			TextView tvBonus = (TextView) findViewById(R.id.tvBonus);
 			tvBonus.setBackgroundResource(R.drawable.bonus);
+			tvBonus.setVisibility(View.VISIBLE);
 		}
-		*/
+		else
+		{
+			for (String s: allWords) {
+				tvMissedWords.append(s + "\n"); // add to textview
+				TextView tvBonus = (TextView) findViewById(R.id.tvBonus);
+				tvBonus.setVisibility(View.INVISIBLE);
+			}
+		}
+		
     }
     
     @Override
