@@ -3,7 +3,6 @@ package psu.se.wordslam.model;
 import java.util.Vector;
 import android.graphics.Point;
 import java.util.HashSet;
-import java.util.List;
 import java.util.ArrayList; 
 
 /**
@@ -28,6 +27,7 @@ public class LetterGrid
 	 */
 	public void GenerateRandomBoard()
 	{
+		// For purely random letter generation:
 		//Random oRandom = new Random();
 		//int randomIndex;
 		
@@ -191,14 +191,38 @@ public class LetterGrid
 		      grid_valid_words.addAll(getValidWordsinString(gridWord, hd));
 		}
 			
-		return grid_valid_words;		
+		return removeDuplicates(grid_valid_words);		
 	}
 	
-	private List<String> getValidWordsinString(String a, HashSet<String> hd){		
-		List<String> valid_words = new ArrayList<String>();
-		List<String> words = new ArrayList<String>();
-		words = findValidWords(a, valid_words, hd);
+	private ArrayList<String> getValidWordsinString(String a, HashSet<String> hd){		
+		ArrayList<String> valid_words = new ArrayList<String>();
+		//ArrayList<String> words = new ArrayList<String>();
+		//words = findValidWords(a, valid_words, hd);
+		findValidWords(a, valid_words, hd);
 		return removeDuplicates(valid_words);
+	}
+	
+	public void findValidWords(String a, ArrayList<String> valid_words, HashSet<String> hd){
+		int N = a.length()-1;
+		//System.out.println("length of "+ a + " is: "+N);
+		int i,j,x;
+		String sub_a = new String();
+		sub_a = "";
+		for(i=1; i<=N ;i++ )
+		{
+			for (j=0; j+i-1<N ; j++)
+			{		
+				sub_a = "";
+				for (x = j; x<=i+j;x++)
+				{
+					sub_a += a.charAt(x);
+				}
+				//words.add(sub_a);
+				if (hd.contains(sub_a)){
+					valid_words.add(sub_a);
+				}					
+			}
+		}
 	}
 	
 	/**
@@ -206,9 +230,10 @@ public class LetterGrid
 	 * @param Array[] of 5 letters
 	 * @return Array[][] of all possible word combinations in the input
 	 */
-	private List<String> findValidWords(String a, List<String> valid_words, HashSet<String> hd){
-		List<String> words = new ArrayList<String>();
-		List<String> sub_words = new ArrayList<String>();
+	/*
+	private ArrayList<String> findValidWords(String a, ArrayList<String> valid_words, HashSet<String> hd){
+		ArrayList<String> words = new ArrayList<String>();
+		ArrayList<String> sub_words = new ArrayList<String>();
 		int i,j;
 		char fix_letter;
 		int n = a.length();
@@ -234,6 +259,9 @@ public class LetterGrid
 		}		
 		return words;
 	}
+	*/
+	
+	
 	
 	private String pullChar(int t, String a){
 		String sub_a = new String();
@@ -248,7 +276,7 @@ public class LetterGrid
 		return sub_a;
 	}	
 	
-	public List<String> removeDuplicates(List<String> a){
+	public ArrayList<String> removeDuplicates(ArrayList<String> a){
 		HashSet<String> hs = new HashSet<String>();
 		hs.addAll(a);
 		a.clear();
