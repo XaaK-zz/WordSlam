@@ -8,7 +8,7 @@
     <string name="MainMenu">Main Menu</string>
     <string name="WordsFound"><u>Found Words</u></string>
     <string name="Loading">Loading New Game...</string>
-    <string name="Submit">Submit</string>
+    <string name="Submit">Done!</string>
     <string name="ResultsWordsFound">Words Found!</string>
     <string name="ResultsWordsMissed">Words Missed...</string>
     <string-array name="game_times">
@@ -20,4 +20,6 @@
         <item>5 minutes</item>
     </string-array>
         <string name="score">Score: </string>
+        <string name="Settings">Settings</string>
+        <string name="SubmitSettings">Ok</string>
 </resources>

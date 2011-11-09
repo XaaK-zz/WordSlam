@@ -25,6 +25,7 @@ import android.widget.TextView;
 public class MainMenuActivity extends Activity implements OnClickListener {
 	private Button 		btnNewOneGame;
 	private Button		btnNewTwoGame;
+	private Button		btnSettings;
 	// considered bad practice to have quit button...
 
 	
@@ -39,6 +40,8 @@ public class MainMenuActivity extends Activity implements OnClickListener {
         btnNewOneGame.setOnClickListener(this);
         btnNewTwoGame = (Button) findViewById(R.id.btnNewTwoGame);
         btnNewTwoGame.setOnClickListener(this);
+        btnSettings = (Button) findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(this);
         
      // set font
 		Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
@@ -46,6 +49,7 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 		mainMenuTitle.setTypeface(tf);
 		btnNewOneGame.setTypeface(tf);
 		btnNewTwoGame.setTypeface(tf);
+		btnSettings.setTypeface(tf);
         
     }
     
@@ -57,17 +61,20 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 		WordSlamApplication wordSlamApplication = (WordSlamApplication)getApplicationContext();
 		switch(v.getId()) {
 			case R.id.btnNewOneGame:	
-				//wordSlamApplication.CreateNewGame(GameType.SinglePlayer);
-	    		//Intent gameIntent = new Intent(this, SingleGameActivity.class);
-				Intent gameSetUpIntent = new Intent(this, GameSetupActivity.class);
-	    		//startActivityForResult(gameIntent, REQUEST_SPG);
-				startActivity(gameSetUpIntent);
+				wordSlamApplication.CreateNewGame(GameType.SinglePlayer);
+	    		Intent gameIntent = new Intent(this, SingleGameActivity.class);
+				startActivity(gameIntent);
 				break;
 			case R.id.btnNewTwoGame:
 				//wordSlamApplication.CreateNewGame(GameType.MultiPlayer);
 				// STUB
 				break;
+			case R.id.btnSettings:
+				Intent settingsIntent = new Intent(this, GameSetupActivity.class);
+				startActivity(settingsIntent);
+				break;
 		}
     }
+	
 
 }

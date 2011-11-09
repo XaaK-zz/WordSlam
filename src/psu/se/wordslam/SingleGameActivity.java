@@ -7,11 +7,13 @@ Please see COPYING file in the distribution for license terms.
 
 package psu.se.wordslam;
 
+import psu.se.wordslam.model.Game.GameType;
 import psu.se.wordslam.model.WordSlamApplication;
 
 import java.util.Vector;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.gesture.GestureOverlayView;
 import android.gesture.GestureOverlayView.OnGestureListener;
 import android.graphics.Color;
@@ -19,8 +21,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,15 +28,15 @@ import android.widget.Button;
 
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SingleGameActivity extends Activity implements OnClickListener, OnGestureListener {
-	private static final int	REQUEST_RESULTS = 0;
+	private static final String 	PREF = "WordSlamPrefs"; // preferences name
+	private SharedPreferences 		settings;
 	
-	private Button				submitGame;
-	private TextView			wordsFound;
-	private WordSlamApplication wordSlamApplication;
-	private Vector<GridButton> 	selectedButtons = new Vector<GridButton>();
+	private Button					submitGame;
+	private TextView				wordsFound;
+	private WordSlamApplication		wordSlamApplication;
+	private Vector<GridButton> 		selectedButtons = new Vector<GridButton>();
 	
 	//delta values used to determine next valid grid button
 	private int deltaX;
@@ -101,8 +101,16 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        setContentView(R.layout.grid);
         wordSlamApplication = (WordSlamApplication)getApplicationContext();
+        wordSlamApplication.CreateNewGame(GameType.SinglePlayer);
+        settings = getSharedPreferences(PREF, MODE_PRIVATE);
+        int time = settings.getInt("TIME", -1);
+        if (time == -1)		// default value
+        	wordSlamApplication.SetGameTimer(3 * 1000 * 60);	// 3 minutes?
+        else
+        	wordSlamApplication.SetGameTimer(time);
+        
+        setContentView(R.layout.grid);
 		
         //setup gesture view
         GestureOverlayView gestures = (GestureOverlayView) findViewById(R.id.gestures);

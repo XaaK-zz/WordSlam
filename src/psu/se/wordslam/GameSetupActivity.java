@@ -1,20 +1,18 @@
 package psu.se.wordslam;
 
-import psu.se.wordslam.model.WordSlamApplication;
-import psu.se.wordslam.model.Game.GameType;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class GameSetupActivity extends Activity implements OnClickListener {
+	private static final String 	PREF = "WordSlamPrefs"; // preferences name
+	private SharedPreferences 		settings;
 
 	//private Button		btnStartGame;
 	//private Spinner		spnTimes;
@@ -42,12 +40,22 @@ public class GameSetupActivity extends Activity implements OnClickListener {
 	// button was clicked. 
 	@Override
 	public void onClick(View v) {
-		WordSlamApplication wordSlamApplication = (WordSlamApplication)getApplicationContext();
+		//WordSlamApplication wordSlamApplication = (WordSlamApplication)getApplicationContext();
 		Spinner spinner = (Spinner) findViewById(R.id.spinnerMinutes);
-		wordSlamApplication.CreateNewGame(GameType.SinglePlayer);
-		wordSlamApplication.SetGameTimer(spinner.getSelectedItemPosition() * 1000 * 60);
-		Intent gameIntent = new Intent(this, SingleGameActivity.class);
-		//startActivityForResult(gameIntent, 0);
-		startActivity(gameIntent);
+		//wordSlamApplication.CreateNewGame(GameType.SinglePlayer);
+		//wordSlamApplication.SetGameTimer(spinner.getSelectedItemPosition() * 1000 * 60);
+		//Intent gameIntent = new Intent(this, SingleGameActivity.class);
+		//startActivity(gameIntent);
+		
+		int time = spinner.getSelectedItemPosition() * 1000 * 60;
+		settings = getSharedPreferences(PREF, MODE_PRIVATE);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt("TIME", time);
+		// Commit the changes made to preferences
+        editor.commit(); 
+		
+		
+        Intent intent = new Intent(this, MainMenuActivity.class);
+		startActivity(intent); 		// return to MainMenuActivity
     }
 }

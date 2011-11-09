@@ -21,7 +21,7 @@
         <LinearLayout android:id="@+id/linearLayout6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_weight="0.36"></LinearLayout>
         <LinearLayout android:id="@+id/linearLayout2" android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_weight="0.29" android:orientation="horizontal">
             <LinearLayout android:id="@+id/linearLayout4" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_weight="0.04"></LinearLayout>
-            <Button android:id="@+id/btnStartGame" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Start Game!" android:layout_weight="0.01"></Button>
+            <Button android:id="@+id/btnStartGame" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="0.01" android:text="@string/SubmitSettings"></Button>
             <LinearLayout android:id="@+id/linearLayout5" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_weight="0.04"></LinearLayout>
         </LinearLayout>
         <LinearLayout android:id="@+id/linearLayout3" android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal"></LinearLayout>

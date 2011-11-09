@@ -33,18 +33,15 @@
 								android:id="@+id/ScrollView03"
 								android:layout_width="match_parent"
 								android:fillViewport="true"
-								android:scrollbarAlwaysDrawVerticalTrack="true"
-								android:layout_height="175dp"
-								android:layout_weight="0.93">
+								android:layout_height="175dp">
 								<TextView
 										android:layout_width="fill_parent"
-										android:layout_height="200dp"
 										android:id="@+id/tvWordsFound"
 										android:textSize="20dp"
 										android:scrollbars="vertical"
 										android:scrollbarStyle="insideOverlay"
-										android:paddingLeft="5dp"
-										android:gravity="center" android:scrollbarAlwaysDrawVerticalTrack="true"></TextView>
+										android:gravity="center"
+										android:scrollbarAlwaysDrawVerticalTrack="true" android:layout_height="fill_parent"></TextView>
 						</ScrollView>
 						<LinearLayout
 								android:id="@+id/linearLayout9"
