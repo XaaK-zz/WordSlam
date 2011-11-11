@@ -101,7 +101,7 @@ public class LetterGrid
 
 	/////////////////////////////////////////////////////////////////////////
 
-	private String[] gridToRowArray()
+	public String[] gridToRowArray()
 	{
 		String[] gridArray = new String[5];
 		String result = "";
@@ -116,6 +116,17 @@ public class LetterGrid
 		}
 		
 		return gridArray;
+	}
+	
+	public void RowArrayToGrid(String rowArray)
+	{
+		for(int y=0;y<5 ;y++)
+		{
+			for(int x=0; x<5 ;x++)
+			{
+				this.m_gridData[x][y] = rowArray.charAt((y*5)+x);
+			}
+		}
 	}
 	
 	private String[] gridToColArray(){

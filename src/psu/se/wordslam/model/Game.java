@@ -12,6 +12,7 @@ public class Game
 	private ArrayList<String> 	allWords;
 	private int 				score;
 	private boolean				bonus;
+	private String				opponentIPAddress;
 	
 	private GameType m_GameType;
 	
@@ -19,6 +20,8 @@ public class Game
 
 	private int m_GameTimeRemaininginMS;
 
+	private boolean m_IsCutThroat;
+	
 	/**
 	 * Basic constructor - sets defaults for everything
 	 */
@@ -34,7 +37,32 @@ public class Game
 		
 		this.score = 0;
 		this.m_TotalGameTimeInMS = 5000;
-		this.m_TotalGameTimeInMS = 5000;
+		this.m_GameTimeRemaininginMS = 5000;
+		this.m_IsCutThroat = false;
+	}
+	
+	/**
+	 * Constructor allowing the setting of the CutThroat property 
+	 * @param gameType
+	 * @param cutThroat
+	 */
+	public Game(GameType gameType, boolean cutThroat, String columnData, int MaxTime)
+	{
+		this.m_GameType = gameType;
+		this.m_Grid = new LetterGrid();
+		if(columnData == null)
+			this.m_Grid.GenerateRandomBoard();
+		else
+			this.m_Grid.RowArrayToGrid(columnData);
+		this.wordsFound = new ArrayList<String>();
+		this.allWords = new ArrayList<String>();
+		// get all words from dictionary and add to allWords list
+		this.allWords = this.m_Grid.getValidWordsinGrid(WordSlamApplication.getInstance().dic);
+		
+		this.score = 0;
+		this.m_TotalGameTimeInMS = MaxTime;
+		this.m_GameTimeRemaininginMS = MaxTime;
+		this.m_IsCutThroat = cutThroat;
 	}
 	
 	/**
@@ -98,6 +126,15 @@ public class Game
 	public LetterGrid GetGrid()
 	{
 		return this.m_Grid;
+	}
+	
+	/**
+	 * Retrieval method for the CutThroat property 
+	 * @return Boolean flag indicating this is a cutthroat game or not
+	 */
+	public boolean IsCutThroat()
+	{
+		return this.m_IsCutThroat;
 	}
 	
 	/**
@@ -167,6 +204,14 @@ public class Game
 	 */
 	public boolean hasBonus() {
 		return bonus;
+	}
+
+	public void SetOpponentIP(String ipAddress) {
+		this.opponentIPAddress = ipAddress;
+	}
+	
+	public String GetOpponentIPAddress() {
+		return this.opponentIPAddress;
 	}
 	
 }

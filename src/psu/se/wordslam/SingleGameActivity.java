@@ -10,10 +10,21 @@ package psu.se.wordslam;
 import psu.se.wordslam.model.Game.GameType;
 import psu.se.wordslam.model.WordSlamApplication;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.Queue;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.gesture.GestureOverlayView;
 import android.gesture.GestureOverlayView.OnGestureListener;
 import android.graphics.Color;
@@ -21,6 +32,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,9 +42,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SingleGameActivity extends Activity implements OnClickListener, OnGestureListener {
-	private static final String 	PREF = "WordSlamPrefs"; // preferences name
-	private SharedPreferences 		settings;
-	
 	private Button					submitGame;
 	private TextView				wordsFound;
 	private WordSlamApplication		wordSlamApplication;
@@ -46,6 +55,23 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
     private long startTime;
     private long gameTime;
     
+    //Thread to support client/server communication
+	private Thread monitorThread;
+	
+	//Opponent's IP address
+	private String opponentIP;
+	
+	//ServerSocket object for monitoring communication
+	private ServerSocket serverSocket;
+	
+	//Queue storing the data to push to the opponent 
+	private Queue<String> dataToSend;
+	//Queue storing the data received from the opponent
+	private Queue<String> dataReceived;
+	
+	//handler used to handle messages receieved from opponent
+	private Handler multiplayerHandler = new Handler();
+	
     private Handler btnColorHandler = new Handler();
     
     private Runnable clearButtonTask = new Runnable() {
@@ -87,6 +113,9 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
     	       }
     	       else
     	       {
+    	    	   if(monitorThread != null)
+    	    		   monitorThread.interrupt();
+   				
     	    	   	//NEED to push user to final screen
     	    	   	Intent resultsIntent = new Intent(SingleGameActivity.this, 
    						ResultsActivity.class);
@@ -94,22 +123,13 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
     	       }
     	   }
     	};
-    	
-    	
+    		
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         wordSlamApplication = (WordSlamApplication)getApplicationContext();
-        wordSlamApplication.CreateNewGame(GameType.SinglePlayer);
-        settings = getSharedPreferences(PREF, MODE_PRIVATE);
-        int time = settings.getInt("TIME", -1);
-        if (time == -1)		// default value
-        	wordSlamApplication.SetGameTimer(3 * 1000 * 60);	// 3 minutes?
-        else
-        	wordSlamApplication.SetGameTimer(time);
-        
         setContentView(R.layout.grid);
 		
         //setup gesture view
@@ -126,7 +146,6 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
         wordsFound.setTypeface(tf);
         TextView tv = (TextView) findViewById(R.id.tvGridTitle);
         tv.setTypeface(tf);
-
         
         // For each button on game board, set its letter, connect the listener,
         // and set its x and y coordinates.
@@ -155,6 +174,17 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 			mHandler.removeCallbacks(mUpdateTimeTask);
 			mHandler.postDelayed(mUpdateTimeTask, 500);
 		}
+		
+		if(wordSlamApplication.GetGame().GetGameType() == GameType.MultiPlayer)
+		{
+			//create communication queues
+			dataToSend = new ConcurrentLinkedQueue<String>();
+			dataReceived =  new ConcurrentLinkedQueue<String>();
+			opponentIP = wordSlamApplication.GetGame().GetOpponentIPAddress();
+			//Multiplayer game - need to kick off monitoring thread for socket communication
+			this.monitorThread = new Thread(new MultiplayerThread());
+			monitorThread.start();
+		}
     }
     
     
@@ -162,26 +192,17 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 	public void onClick(View v) {
     	switch(v.getId()) {
 			case R.id.btnSubmitGame:
+				if(monitorThread != null)
+					monitorThread.interrupt();
+				 
 				Intent resultsIntent = new Intent(SingleGameActivity.this, 
 						ResultsActivity.class);
-	    		//startActivityForResult(resultsIntent, REQUEST_RESULTS);
-				startActivity(resultsIntent);
+	    		startActivity(resultsIntent);
 	    		break;
     	}
 				
     }
-    
-    
-/*    
-    @Override
-	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    	Intent returnIntent = new Intent();
-    	setResult(Activity.RESULT_OK, returnIntent);
-        finish();	// return to MainMenuActivity
-    }
-*/
-    
-    
+     
     @Override
 	public void onGesture(GestureOverlayView overlay, MotionEvent event) {
 		GridButton temp = this.GetButton((int)event.getRawX(), (int)event.getRawY());
@@ -223,18 +244,17 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 	@Override
 	public void onGestureEnded(GestureOverlayView overlay, MotionEvent event) {
 		String word = "";
+		String location = "";
 		for(GridButton btn : this.selectedButtons)
 		{
 			btn.SetInactive();
 			word += btn.getText();
+			location += "<" + btn.x + btn.y + ">,";
 		}
-		
 		
 		//Check word
 		if (wordSlamApplication.dictionary_search(word.toLowerCase())) {
 			if(!wordSlamApplication.m_Game.wordAlreadyFound(word.toLowerCase())) {
-				//Toast.makeText(SingleGameActivity.this, "Found a new Word!", 
-				//		Toast.LENGTH_SHORT).show();
 				for(GridButton btn : this.selectedButtons)
 				{
 					btn.SetCorrect();
@@ -243,10 +263,14 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 				btnColorHandler.postDelayed(this.clearButtonTask, 500);
 				wordsFound.append(word + "\n"); // add to textview
 				wordSlamApplication.m_Game.addFoundWord(word.toLowerCase()); // add to game
+				if(wordSlamApplication.GetGame().GetGameType() == GameType.MultiPlayer) {
+					//Send word found to opponent (add to send queue)
+					//	Note: the Queue used is Thread-safe so no need for synchronized block
+					this.dataToSend.add("1|" + location + "|" + word);
+				}
 			}
 		}
 		else {
-			//Toast.makeText(SingleGameActivity.this, "Oops, not a word...", Toast.LENGTH_SHORT).show();
 			for(GridButton btn : this.selectedButtons)
 			{
 				btn.SetInCorrect();
@@ -306,5 +330,143 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 		//have to implement this method
 		selectedButtons.clear();
 		return;
+	}
+	
+	@Override
+    protected void onStop() {
+        super.onStop();
+        try {
+            if(serverSocket != null)
+        		serverSocket.close();
+            if(this.monitorThread != null)
+            	this.monitorThread.interrupt();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+    }
+	
+	/**
+	 * This is invoked via the socket/multiplayer thread when it is time to process the 
+	 *	incoming data from the opponent.  Depending on the type of "command" sent by the 
+	 *	opponent process - the UI will need to take different actions
+	 */
+	public void ProcessMultiplayerInput()
+	{
+		String command = this.dataReceived.poll();
+		if(command != null)
+		{
+			//deal with various messages we can get from opponent process
+			switch(command.charAt(0))
+			{
+			case '1':
+				//word received from opponent
+				//	Format: 1|<x,y>,<x,y>|word
+				Log.d("UIThread", "process word command - " + command);
+                
+				break;
+			}
+		}
+	}
+	
+	////////////////////Threading Code for Multiplayer////////////////////////////////
+	public class MultiplayerThread implements Runnable {
+		public void run() {
+			Socket socket = null;
+			Socket clientSocket = null;
+			String line = "";
+			BufferedReader serverReader = null;
+			
+			try {
+                if (opponentIP != null) {
+                	//Start server socket monitoring
+                	//Open socket to other player
+                    socket = new Socket(opponentIP, MultiplayerSetupActivity.SERVERPORT);
+                    //listen for connections from other player
+                    serverSocket = new ServerSocket(MultiplayerSetupActivity.SERVERPORT);
+                    //Get in/out streams
+                	PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+                	
+                    //set server timeout value
+                    serverSocket.setSoTimeout(500);
+                    
+                    while (true) {
+                        //listen for incoming data
+                        try {
+                        	if(clientSocket == null) {
+                        		clientSocket = serverSocket.accept();
+                        	}
+                        	
+                        } catch(SocketTimeoutException ex){
+                        	clientSocket = null;
+                    	}
+                        
+                        if(clientSocket != null)
+                        {
+                        	//Log.d("MultiplayerThread", "getting reader...");
+                        	clientSocket.setSoTimeout(500);
+                        	try {
+                        		serverReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));	
+                        		while ((line = serverReader.readLine()) != null) {
+                        			Log.d("MultiplayerThread", "data received: " + line);
+                        			//Add to data queue
+                        			//	Note: this collection is thread-safe so no need for synchronized block
+                        			dataReceived.add(line);
+                        			//push the notification up to ui thread for processing
+                        			NotifyUI();
+                        		}
+                        	}
+                        	catch(SocketTimeoutException ex) {
+                        		//Log.d("MultiplayerThread", "Exception receieving data: " + ex.toString());
+                        		serverReader = null;
+                        	}
+                        }
+                        
+                        Thread.yield();
+                    	if (Thread.currentThread().isInterrupted())	 
+                    	      throw new InterruptedException("Interrupted");
+                    	
+                		//Check for data to send - pull off of shared queue
+                    	//	Note: the Queue used is Thread-safe so no need for synchronized block
+                    	String send = dataToSend.poll();
+                    	
+                    	if(send != null) {
+                    		Log.d("MultiplayerThread", "data to send: " + send);
+                			out.println(send);
+                			out.flush();
+                		}
+                    	
+                    	Thread.yield();
+                    	if (Thread.currentThread().isInterrupted())	
+                    	      throw new InterruptedException("Interrupted");
+                    }
+                } 
+            }
+            catch (InterruptedException ex) {
+            	return;
+            }
+            catch (Exception e) {
+            	Log.d("Server Error", e.toString());
+            }
+            finally {
+            	try {
+            		if(socket != null)
+            			socket.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+            }
+        }
+
+		/**
+		 * Thread notification to the UI
+		 */
+		private void NotifyUI() {
+			multiplayerHandler.post(new Runnable() {
+                 @Override
+                 public void run() {
+                 	ProcessMultiplayerInput();
+                 }
+			});
+		}
 	}
 }

@@ -22,4 +22,11 @@
         <string name="score">Score: </string>
         <string name="Settings">Settings</string>
         <string name="SubmitSettings">Ok</string>
+    <string-array name="multi_game_times">
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>3 minutes</item>
+        <item>4 minutes</item>
+        <item>5 minutes</item>
+    </string-array>
 </resources>

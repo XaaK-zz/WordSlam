@@ -19,7 +19,6 @@ public class WordSlamApplication extends android.app.Application {
 	private static WordSlamApplication 	singleton;
 	public HashSet<String> 				dic;	
 	public static AssetManager 			assetManager;
-	//public static ArrayList<Character> 	easyAlphabet;
 	private Resources	 				resources; 
 	public String 						dummy;
 	
@@ -42,14 +41,13 @@ public class WordSlamApplication extends android.app.Application {
 	 */
 	@Override
 	public void onCreate() {
-		//assetManager = getAssets();
 		resources = getResources();  
 		dic = new HashSet<String>(); 
 		dictionary_build();
 		
 		super.onCreate();
-		singleton = this;	
-		//easyAlphabet = Alphabet.buildEasyAlphabet();
+		singleton = this;
+		this.m_Game = null;
 	}
 	
 	/**
@@ -57,10 +55,21 @@ public class WordSlamApplication extends android.app.Application {
 	 * 	Multi-player or Single-Player
 	 * @param gameType GameType enum
 	 */
-	public void CreateNewGame(Game.GameType gameType)
+	public void CreateNewGame(Game.GameType gameType, int time)
 	{
-		this.m_Game = new Game(gameType);
-		
+		this.m_Game = new Game(gameType);	
+		this.SetGameTimer(time);
+	}
+	
+	/**
+	 * Creates and initializes a new Game Object based on the passed type<br>
+	 * 	Multi-player or Single-Player
+	 * @param gameType GameType enum
+	 * @param isCutThroat Flag indicating this is a cutThroat multiplayer game or not
+	 */
+	public void CreateNewGame(Game.GameType gameType, boolean isCutThroat, String columnData, int maxTime)
+	{
+		this.m_Game = new Game(gameType,isCutThroat, columnData, maxTime);	
 	}
 	
 	/**
@@ -70,8 +79,15 @@ public class WordSlamApplication extends android.app.Application {
 	 */
 	public void SetGameTimer(int MaxTime)
 	{
+		if(MaxTime < 0)
+			MaxTime = 1000 * 60;	//1 minute default
 		this.m_Game.SetTotalGameTime(MaxTime);
 		this.m_Game.SetRemainingGameTime(MaxTime);
+	}
+	
+	public void SetOpponentIP(String ipAddress) 
+	{
+		this.m_Game.SetOpponentIP(ipAddress);
 	}
 	
 	/**
@@ -86,40 +102,26 @@ public class WordSlamApplication extends android.app.Application {
 	public void dictionary_build()
 	{
 			String strLine;
-			//dummy = "zyic";
-			//dic.add("god");
-			//dic.add("man");
 			try
 	 	  	{	
-				  
-				  //AssetManager assetManager = getAssets();
-				  //InputStream is = am.open("test.txt");
 				  InputStream inputStream = resources.getAssets().open("dictionary.txt");
-				  
-	 			  //InputStream inputStream = assetManager.open("/dictionary.txt");
-	 			  InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+				  InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 	 			  BufferedReader br = new BufferedReader(inputStreamReader);	 			 			  
 	 			  			 
 	 			  //Read File Line By Line
 	 			  while ((strLine = br.readLine()) != null) {
 	 				  // Add the string to array list
 	 				  dic.add(strLine);	
-	 				  //dummy = strLine;
 	 			  }
-	 			 //Toast.makeText(this, dummy,Toast.LENGTH_SHORT).show();
 	 			  //Close the input stream
 	 			  inputStream.close();
 	 	  	} catch (Exception e) {
 	 	  		Toast toast = Toast.makeText(this, "File: not found!", Toast.LENGTH_LONG); 	  		toast.show(); 
-	            
 	        }
 	}
 	  
 	public boolean dictionary_search(String input){
-	 	boolean index;
-		index = dic.contains(input);
-		//index = dummy.equals(input);	
-	 	 return index;	 
+	 	return  dic.contains(input);	 
 	}
 	  
 }

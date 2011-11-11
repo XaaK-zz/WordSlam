@@ -12,6 +12,7 @@ import psu.se.wordslam.model.Game.GameType;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -61,13 +62,16 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 		WordSlamApplication wordSlamApplication = (WordSlamApplication)getApplicationContext();
 		switch(v.getId()) {
 			case R.id.btnNewOneGame:	
-				wordSlamApplication.CreateNewGame(GameType.SinglePlayer);
+				SharedPreferences settings = getSharedPreferences("WordSlamPrefs", MODE_PRIVATE);
+		        int time = settings.getInt("TIME", -1);
+		        wordSlamApplication.CreateNewGame(GameType.SinglePlayer,time);
+				
 	    		Intent gameIntent = new Intent(this, SingleGameActivity.class);
 				startActivity(gameIntent);
 				break;
 			case R.id.btnNewTwoGame:
-				//wordSlamApplication.CreateNewGame(GameType.MultiPlayer);
-				// STUB
+				Intent multiSetupIntent = new Intent(this, MultiplayerSetupActivity.class);
+				startActivity(multiSetupIntent);
 				break;
 			case R.id.btnSettings:
 				Intent settingsIntent = new Intent(this, GameSetupActivity.class);

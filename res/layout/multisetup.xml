@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+    <RelativeLayout android:visibility="gone"  android:id="@+id/layoutJoinGameSettings" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight=".50">
+    	<TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:id="@+id/textView5" android:layout_width="wrap_content" android:text="Looking for game..." android:layout_alignParentTop="true" android:layout_centerHorizontal="true" android:layout_marginTop="49dp"></TextView>
+        <ScrollView android:id="@+id/ScrollView01" android:layout_width="50dp" android:layout_height="100dp" android:layout_alignLeft="@+id/textView5" android:layout_alignRight="@+id/textView5" android:layout_alignParentBottom="true" android:layout_below="@+id/textView5">
+            <TextView android:scrollbarAlwaysDrawVerticalTrack="true" android:scrollbarStyle="insideOverlay" android:id="@+id/txtJoinGameLog" android:layout_height="fill_parent" android:layout_width="match_parent" android:gravity="center" android:scrollbars="vertical"></TextView>
+        </ScrollView>
+        <ProgressBar android:layout_width="wrap_content" android:id="@+id/progressBar1" android:layout_height="wrap_content" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"></ProgressBar>
+    </RelativeLayout>
+    <RelativeLayout android:id="@+id/layoutHostGame" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight=".50">
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Start Game" android:id="@+id/btnStartHostGame" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_marginBottom="21dp"></Button>
+        <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/textView1" android:layout_width="wrap_content" android:text="Host Game" android:layout_alignParentTop="true" android:layout_centerHorizontal="true" android:layout_marginTop="28dp"></TextView>
+        <Spinner android:id="@+id/hostGameTime" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/textView1" android:layout_centerHorizontal="true" android:layout_marginTop="15dp"></Spinner>
+        <CheckBox android:text="Cutthroat" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/hostGameCheckBoxCT" android:layout_below="@+id/hostGameTime" android:layout_alignRight="@+id/textView1" android:layout_marginTop="16dp"></CheckBox>
+    </RelativeLayout>
+    <LinearLayout android:orientation="vertical" android:id="@+id/layoutDivider" android:layout_width="10px" android:layout_height="fill_parent" android:background="#000000"></LinearLayout>
+    <RelativeLayout  android:id="@+id/layoutJoinGame" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight=".50">
+        <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_width="wrap_content" android:text="Join Game" android:layout_alignParentTop="true" android:layout_centerHorizontal="true" android:layout_marginTop="28dp"></TextView>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Look For Games" android:id="@+id/btnLookGames" android:layout_centerVertical="true" android:layout_centerHorizontal="true"></Button>
+    </RelativeLayout>
+    <RelativeLayout android:visibility="gone" android:id="@+id/layoutHostGameSettings" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight=".50">
+        <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:id="@+id/textView3" android:layout_width="wrap_content" android:text="Waiting for client..." android:layout_alignParentTop="true" android:layout_centerHorizontal="true" android:layout_marginTop="49dp"></TextView>
+        <ScrollView android:id="@+id/ScrollView01" android:layout_width="50dp" android:layout_height="100dp" android:layout_alignLeft="@+id/textView3" android:layout_alignRight="@+id/textView3" android:layout_alignParentBottom="true" android:layout_below="@+id/textView3">
+            <TextView android:scrollbarAlwaysDrawVerticalTrack="true" android:scrollbarStyle="insideOverlay" android:id="@+id/txtHostGameLog" android:layout_height="fill_parent" android:layout_width="match_parent" android:gravity="center" android:scrollbars="vertical"></TextView>
+        </ScrollView>
+        <ProgressBar android:layout_width="wrap_content" android:id="@+id/progressBar1" android:layout_height="wrap_content" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"></ProgressBar>
+    </RelativeLayout>
+</LinearLayout>
