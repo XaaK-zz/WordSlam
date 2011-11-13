@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" android:paddingBottom="5dp" android:paddingLeft="20dp" android:paddingRight="20dp" android:paddingTop="5dp">
+		<LinearLayout
+				android:id="@+id/linearLayout1"
+				android:layout_height="fill_parent"
+				android:layout_width="fill_parent"
+				android:layout_weight="1">
+				<LinearLayout
+						android:id="@+id/linearLayout2"
+						android:layout_height="match_parent"
+						android:orientation="vertical"
+						android:layout_width="match_parent"
+						android:layout_weight=".5" android:layout_marginRight="40dp">
+						<TextView
+								android:layout_height="wrap_content"
+								android:layout_width="match_parent"
+								android:gravity="center"
+								android:layout_marginBottom="3dp"
+								android:textStyle="bold"
+								android:textColor="#339933"
+								android:id="@+id/tvWordsFoundTitle"
+								android:text="@string/ResultsWordsYouFound"></TextView>
+						<ScrollView
+								android:id="@+id/ScrollView01"
+								android:layout_width="match_parent"
+								android:fillViewport="true"
+								android:layout_height="match_parent">
+								<TextView
+										android:layout_width="match_parent"
+										android:scrollbars="vertical"
+										android:gravity="center"
+										android:textColor="#339933"
+										android:id="@+id/tvWordsFoundList"
+										android:layout_marginLeft="4dp"
+										android:layout_marginRight="4dp"
+										android:scrollbarStyle="insideOverlay"
+										android:scrollbarAlwaysDrawVerticalTrack="true"
+										android:layout_height="match_parent" android:background="@drawable/back"></TextView>
+						</ScrollView>
+				</LinearLayout>
+				<LinearLayout
+						android:id="@+id/linearLayout3"
+						android:layout_height="match_parent"
+						android:orientation="vertical"
+						android:layout_width="match_parent"
+						android:layout_weight=".5" android:layout_marginLeft="40dp">
+						<TextView
+								android:layout_height="wrap_content"
+								android:layout_width="match_parent"
+								android:gravity="center"
+								android:layout_marginBottom="3dp"
+								android:textStyle="bold"
+								android:textColor="#CC0000"
+								android:id="@+id/tvWordsMissedTitle"
+								android:text="@string/ResultsWordsTheyFound"></TextView>
+						<ScrollView
+								android:id="@+id/ScrollView02"
+								android:layout_width="match_parent"
+								android:fillViewport="true"
+								android:layout_height="match_parent">
+								<TextView
+										android:layout_width="match_parent"
+										android:background="@drawable/back"
+										android:scrollbars="vertical"
+										android:scrollbarStyle="insideOverlay"
+										android:gravity="center"
+										android:textColor="#CC0000"
+										android:id="@+id/tvResultsMissedList"
+										android:layout_marginLeft="4dp"
+										android:layout_marginRight="4dp"
+										android:scrollbarAlwaysDrawVerticalTrack="true"
+										android:layout_height="match_parent"></TextView>
+						</ScrollView>
+				</LinearLayout>
+		</LinearLayout>
+		<LinearLayout
+				android:layout_weight="1"
+				android:id="@+id/linearLayout5"
+				android:layout_width="match_parent"
+				android:gravity="center_vertical|center"
+				android:layout_height="80dp"
+				android:layout_marginTop="3dp">
+				<LinearLayout android:layout_height="match_parent" android:id="@+id/linearLayout4" android:gravity="center_vertical|center" android:layout_width="match_parent" android:layout_weight=".5" android:background="@drawable/winner">
+					<TextView android:layout_marginRight="5dp" android:layout_height="wrap_content" android:textColor="#339933" android:text="@string/score" android:layout_width="wrap_content" android:id="@+id/tvScoreLeft" android:textStyle="bold" android:textSize="16dp"></TextView>
+					<TextView android:layout_height="25dp" android:gravity="center_vertical|center_horizontal" android:padding="2dp" android:layout_width="60dp" android:id="@+id/tvScore" android:background="@drawable/backtrans"></TextView>
+				</LinearLayout>
+				<Button android:gravity="center" android:text="@string/MainMenu" android:layout_height="32dp" android:layout_width="wrap_content" android:textSize="10dp" android:id="@+id/btnMainMenu"></Button>
+				<LinearLayout android:layout_height="match_parent" android:id="@+id/linearLayout6" android:gravity="center_vertical|center" android:layout_width="match_parent" android:layout_weight=".5">
+					<TextView android:layout_marginRight="5dp" android:layout_height="wrap_content" android:textColor="#CC0000" android:text="@string/score" android:layout_width="wrap_content" android:id="@+id/tvScoreRight" android:textStyle="bold" android:textSize="16dp"></TextView>
+					<TextView android:layout_height="25dp" android:gravity="center_vertical|center_horizontal" android:padding="2dp" android:layout_width="60dp" android:id="@+id/tvScore" android:background="@drawable/backtrans"></TextView>
+				</LinearLayout>
+		</LinearLayout>
+
+</LinearLayout>

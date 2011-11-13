@@ -10,6 +10,8 @@
     <string name="Loading">Loading New Game...</string>
     <string name="Submit">Done!</string>
     <string name="ResultsWordsFound">Words Found!</string>
+    <string name="ResultsWordsYouFound">Words You Found</string>
+    <string name="ResultsWordsTheyFound">Words They Found</string>
     <string name="ResultsWordsMissed">Words Missed...</string>
     <string-array name="game_times">
         <item>No limit</item>
@@ -29,4 +31,8 @@
         <item>4 minutes</item>
         <item>5 minutes</item>
     </string-array>
+    	<string name="TheirScore">Their\nScore</string>
+    	<string name="TheirWordsFound"><u>Their\nFound Words</u></string>
+        <string name="YourScore">Your\nScore</string>
+        <string name="YourWordsFound"><u>Your\nFound Words</u></string>
 </resources>

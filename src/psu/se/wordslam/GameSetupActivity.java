@@ -3,12 +3,14 @@ package psu.se.wordslam;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class GameSetupActivity extends Activity implements OnClickListener {
 	private static final String 	PREF = "WordSlamPrefs"; // preferences name
@@ -24,6 +26,10 @@ public class GameSetupActivity extends Activity implements OnClickListener {
 	    super.onCreate(savedInstanceState);
 	
 	    setContentView(R.layout.gamesetup);
+	    
+	    TextView settingsTitle = (TextView) findViewById(R.id.tvSettings);
+	    Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
+	    settingsTitle.setTypeface(tf);
 
 	    Spinner spinner = (Spinner) findViewById(R.id.spinnerMinutes);
 	    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(

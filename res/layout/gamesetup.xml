@@ -9,7 +9,9 @@
         android:id="@+id/vert1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" android:orientation="vertical" android:weightSum="1">
-        <LinearLayout android:id="@+id/linearLayout1" android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" android:layout_weight="0.29"></LinearLayout>
+        <LinearLayout android:id="@+id/linearLayout1" android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" android:layout_weight="0.29" android:gravity="center">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/Settings" android:textSize="20dp" android:id="@+id/tvSettings" android:textColor="#669999"></TextView>
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/h1"
             android:layout_width="wrap_content"
