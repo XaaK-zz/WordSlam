@@ -21,6 +21,7 @@ public class WordSlamApplication extends android.app.Application {
 	public static AssetManager 			assetManager;
 	private Resources	 				resources; 
 	public String 						dummy;
+	public boolean HostGame;
 	
 	/**
 	 * Reference to the Game object representing the current state of the game

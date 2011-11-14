@@ -27,7 +27,7 @@
 										android:layout_height="wrap_content"
 										android:gravity="center"
 										android:textStyle="bold"
-										android:id="@+id/tvGridTitleLeft"
+										android:id="@+id/tvGridTitle"
 										android:textSize="12dp"
 										android:text="@string/YourWordsFound" android:layout_width="wrap_content" android:layout_marginRight="6dp" android:textColor="#339933"></TextView>
 								<TextView
@@ -115,7 +115,7 @@
 										android:id="@+id/tvTheirScore"
 										android:textColor="#CC0000" android:text="@string/score" android:layout_marginRight="1dp"></TextView>
 								<TextView
-										android:id="@+id/tvScore"
+										android:id="@+id/tvScore2"
 										android:gravity="center_vertical|center_horizontal"
 										android:padding="2dp"
 										android:background="@drawable/back"

@@ -110,6 +110,7 @@ public class MultiplayerSetupActivity extends Activity implements OnClickListene
 					 //Create Game object with settings
 					 wordSlamApplication.CreateNewGame(GameType.MultiPlayer,cutthroat.isChecked(), null, 
 							 (1 + spinner.getSelectedItemPosition()) * 1000 * 60);
+					 wordSlamApplication.HostGame = true;
 					 
 					 //start thread for listening to server events
 					 this.serverThread = new Thread(new ServerThread());
@@ -229,6 +230,7 @@ public class MultiplayerSetupActivity extends Activity implements OnClickListene
                 	PostUpdate("Listening on IP: " + SERVERIP);
                 	//Start server socket monitoring
                     serverSocket = new ServerSocket(SERVERPORT);
+                	//serverSocket = new ServerSocket(2021);
                     while (true) {
                         // LISTEN FOR INCOMING CLIENTS
                         Socket client = null;
@@ -358,9 +360,10 @@ public class MultiplayerSetupActivity extends Activity implements OnClickListene
                 
                 //Connect
                 Socket socket = new Socket(serverAddr, SERVERPORT);
+                //Socket socket = new Socket(serverAddr, 2021);
                 while (true) {
                     try {
-                    	PostUpdate("Connected...");
+                    	//PostUpdate("Connected...");
                     	
                     	//Get in/out streams
                     	PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
@@ -401,7 +404,8 @@ public class MultiplayerSetupActivity extends Activity implements OnClickListene
                     			sb.toString(),							//Column Data
                     			Integer.parseInt(data[1].trim()));		//Timer
                     		WordSlamApplication.getInstance().SetOpponentIP(serverAddr.getHostAddress());
-                        	
+                    		WordSlamApplication.getInstance().HostGame = false;
+                    		
                     		PostUpdate("Client game created.\nStarting Game.");
                     		
                     		//Kick off process to move to game activity

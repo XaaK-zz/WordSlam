@@ -44,6 +44,7 @@ import android.widget.TextView;
 public class SingleGameActivity extends Activity implements OnClickListener, OnGestureListener {
 	private Button					submitGame;
 	private TextView				wordsFound;
+	private TextView				wordsOpponentFound;
 	private WordSlamApplication		wordSlamApplication;
 	private Vector<GridButton> 		selectedButtons = new Vector<GridButton>();
 	
@@ -130,8 +131,13 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
         super.onCreate(savedInstanceState);
         
         wordSlamApplication = (WordSlamApplication)getApplicationContext();
-        setContentView(R.layout.grid);
-		
+        if(wordSlamApplication.GetGame().GetGameType() == GameType.MultiPlayer) {        	
+        	setContentView(R.layout.gridtwo);
+        	wordsOpponentFound = (TextView) findViewById(R.id.tvOpponentWordsFound);
+        }
+        else
+        	setContentView(R.layout.grid);
+        
         //setup gesture view
         GestureOverlayView gestures = (GestureOverlayView) findViewById(R.id.gestures);
         gestures.addOnGestureListener(this);
@@ -144,6 +150,8 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
         // set font
         Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
         wordsFound.setTypeface(tf);
+        if(wordsOpponentFound != null)
+        	wordsOpponentFound.setTypeface(tf);
         TextView tv = (TextView) findViewById(R.id.tvGridTitle);
         tv.setTypeface(tf);
         
@@ -263,10 +271,16 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 				btnColorHandler.postDelayed(this.clearButtonTask, 500);
 				wordsFound.append(word + "\n"); // add to textview
 				wordSlamApplication.m_Game.addFoundWord(word.toLowerCase()); // add to game
+				
 				if(wordSlamApplication.GetGame().GetGameType() == GameType.MultiPlayer) {
 					//Send word found to opponent (add to send queue)
 					//	Note: the Queue used is Thread-safe so no need for synchronized block
 					this.dataToSend.add("1|" + location + "|" + word);
+					
+					//Set Score
+					TextView score = (TextView) findViewById(R.id.tvScore);
+					Integer x = wordSlamApplication.m_Game.getScore();
+					score.setText(x.toString());
 				}
 			}
 		}
@@ -362,7 +376,17 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 				//word received from opponent
 				//	Format: 1|<x,y>,<x,y>|word
 				Log.d("UIThread", "process word command - " + command);
-                
+				String data[] = command.split("\\|");
+				Log.d("UIThread", "data[2] - " + data[2]);
+				
+				WordSlamApplication.getInstance().GetGame().addOpponentFoundWord(data[2].toUpperCase());
+				//Set Score
+				TextView score = (TextView) findViewById(R.id.tvScore2);
+				Integer x = wordSlamApplication.m_Game.GetOpponentScore();
+				score.setText(x.toString());
+				//Add word
+				wordsOpponentFound.append(data[2].toUpperCase() + "\n");
+				
 				break;
 			}
 		}
@@ -375,70 +399,125 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 			Socket clientSocket = null;
 			String line = "";
 			BufferedReader serverReader = null;
+			BufferedReader clientReader = null;
+			PrintWriter out = null;
+			PrintWriter serverWriter = null;
 			
 			try {
                 if (opponentIP != null) {
                 	//Start server socket monitoring
                 	//Open socket to other player
-                    socket = new Socket(opponentIP, MultiplayerSetupActivity.SERVERPORT);
-                    //listen for connections from other player
-                    serverSocket = new ServerSocket(MultiplayerSetupActivity.SERVERPORT);
-                    //Get in/out streams
-                	PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-                	
-                    //set server timeout value
-                    serverSocket.setSoTimeout(500);
-                    
-                    while (true) {
-                        //listen for incoming data
-                        try {
-                        	if(clientSocket == null) {
-                        		clientSocket = serverSocket.accept();
-                        	}
-                        	
-                        } catch(SocketTimeoutException ex){
-                        	clientSocket = null;
-                    	}
+                	if(WordSlamApplication.getInstance().HostGame)
+                	{
+                		//socket = new Socket(opponentIP, 2021);
+                		//listen for connections from other player
+                		serverSocket = new ServerSocket(MultiplayerSetupActivity.SERVERPORT);
+                		
+                		//set server timeout value
+                        serverSocket.setSoTimeout(1000);
                         
-                        if(clientSocket != null)
-                        {
-                        	//Log.d("MultiplayerThread", "getting reader...");
-                        	clientSocket.setSoTimeout(500);
-                        	try {
-                        		serverReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));	
-                        		while ((line = serverReader.readLine()) != null) {
-                        			Log.d("MultiplayerThread", "data received: " + line);
-                        			//Add to data queue
-                        			//	Note: this collection is thread-safe so no need for synchronized block
-                        			dataReceived.add(line);
-                        			//push the notification up to ui thread for processing
-                        			NotifyUI();
+                        while (true) {
+                            //listen for incoming data
+                            try {
+                            	if(clientSocket == null) {
+                            		clientSocket = serverSocket.accept();
+                            	}
+                            	
+                            } catch(SocketTimeoutException ex){
+                            	clientSocket = null;
+                        	}
+                            
+                            if(clientSocket != null)
+                            {
+                            	//Log.d("MultiplayerThread", "getting reader...");
+                            	clientSocket.setSoTimeout(500);
+                            	try {
+                            		serverReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                            		serverWriter = new PrintWriter(clientSocket.getOutputStream(),true);
+                                    
+                            		while ((line = serverReader.readLine()) != null) {
+                            			Log.d("MultiplayerThread", "data received: " + line);
+                            			//Add to data queue
+                            			//	Note: this collection is thread-safe so no need for synchronized block
+                            			dataReceived.add(line);
+                            			//push the notification up to ui thread for processing
+                            			NotifyUI();
+                            		}
+                            	}
+                            	catch(SocketTimeoutException ex) {
+                            		//Log.d("MultiplayerThread", "Exception receieving data: " + ex.toString());
+                            		serverReader = null;
+                            	}
+                            	
+                            	Thread.yield();
+                            	if (Thread.currentThread().isInterrupted())	 
+                            	      throw new InterruptedException("Interrupted");
+                            	
+                        		//Check for data to send - pull off of shared queue
+                            	//	Note: the Queue used is Thread-safe so no need for synchronized block
+                            	String send = dataToSend.poll();
+                            	
+                            	if(send != null) {
+                            		Log.d("MultiplayerThread", "data to send: " + send);
+                        			//out.println(send);
+                        			//out.flush();
+                            		serverWriter.println(send);
+                            		serverWriter.flush();
                         		}
-                        	}
-                        	catch(SocketTimeoutException ex) {
-                        		//Log.d("MultiplayerThread", "Exception receieving data: " + ex.toString());
-                        		serverReader = null;
-                        	}
+                            	
+                            	Thread.yield();
+                            	if (Thread.currentThread().isInterrupted())	
+                            	      throw new InterruptedException("Interrupted");
+                            	
+                            }
                         }
                         
-                        Thread.yield();
-                    	if (Thread.currentThread().isInterrupted())	 
-                    	      throw new InterruptedException("Interrupted");
-                    	
-                		//Check for data to send - pull off of shared queue
-                    	//	Note: the Queue used is Thread-safe so no need for synchronized block
-                    	String send = dataToSend.poll();
-                    	
-                    	if(send != null) {
-                    		Log.d("MultiplayerThread", "data to send: " + send);
-                			out.println(send);
-                			out.flush();
-                		}
-                    	
-                    	Thread.yield();
-                    	if (Thread.currentThread().isInterrupted())	
-                    	      throw new InterruptedException("Interrupted");
-                    }
+                	}
+                	else
+                	{
+                		socket = new Socket(opponentIP, MultiplayerSetupActivity.SERVERPORT);
+                		out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+                		
+                		//set server timeout value
+                		socket.setSoTimeout(1000);
+                        
+                		while(true) {
+                			
+	                		//Check for data to send - pull off of shared queue
+	                    	//	Note: the Queue used is Thread-safe so no need for synchronized block
+	                    	String send = dataToSend.poll();
+	                    	
+	                    	if(send != null) {
+	                    		Log.d("MultiplayerThread", "data to send: " + send);
+	                			//out.println(send);
+	                			//out.flush();
+	                    		out.println(send);
+	                    		out.flush();
+	                		}
+	                    	
+	                    	try {
+	                    		clientReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+	                            
+	                    		while ((line = clientReader.readLine()) != null) {
+	                    			Log.d("MultiplayerThread", "data received: " + line);
+	                    			//Add to data queue
+	                    			//	Note: this collection is thread-safe so no need for synchronized block
+	                    			dataReceived.add(line);
+	                    			//push the notification up to ui thread for processing
+	                    			NotifyUI();
+	                    		}
+	                            	
+	                    	}
+	                        catch(SocketTimeoutException ex) {
+	                    		//Log.d("MultiplayerThread", "Exception receieving data: " + ex.toString());
+	                        	clientReader = null;
+	                    	}
+	                        //Check for thread interuption
+	                        Thread.yield();
+                        	if (Thread.currentThread().isInterrupted())	
+                        	      throw new InterruptedException("Interrupted");
+	                	}
+                	}
                 } 
             }
             catch (InterruptedException ex) {

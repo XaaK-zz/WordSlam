@@ -9,8 +9,10 @@ public class Game
 {
 	private LetterGrid 			m_Grid;
 	private ArrayList<String> 	wordsFound;
+	private ArrayList<String> 	wordsOpponentFound;
 	private ArrayList<String> 	allWords;
 	private int 				score;
+	private int 				opponentScore;
 	private boolean				bonus;
 	private String				opponentIPAddress;
 	
@@ -32,10 +34,12 @@ public class Game
 		this.m_Grid.GenerateRandomBoard();
 		this.wordsFound = new ArrayList<String>();
 		this.allWords = new ArrayList<String>();
+		wordsOpponentFound = new ArrayList<String>();
 		// get all words from dictionary and add to allWords list
 		this.allWords = this.m_Grid.getValidWordsinGrid(WordSlamApplication.getInstance().dic);
 		
 		this.score = 0;
+		opponentScore = 0;
 		this.m_TotalGameTimeInMS = 5000;
 		this.m_GameTimeRemaininginMS = 5000;
 		this.m_IsCutThroat = false;
@@ -55,6 +59,7 @@ public class Game
 		else
 			this.m_Grid.RowArrayToGrid(columnData);
 		this.wordsFound = new ArrayList<String>();
+		wordsOpponentFound = new ArrayList<String>();
 		this.allWords = new ArrayList<String>();
 		// get all words from dictionary and add to allWords list
 		this.allWords = this.m_Grid.getValidWordsinGrid(WordSlamApplication.getInstance().dic);
@@ -178,6 +183,13 @@ public class Game
 		this.score += word.length();
 	}
 	
+	public void addOpponentFoundWord(String word)
+	{
+		this.wordsOpponentFound.add(word);
+		
+		opponentScore +=word.length();
+	}
+	
 	/**
 	 * Utility method to check if a word already exists in the found list
 	 * @param word Word to check
@@ -197,6 +209,9 @@ public class Game
 		return score;
 	}
 	
+	public int GetOpponentScore() {
+		return this.opponentScore;
+	}
 	
 	/**
 	 * Retrieval method determining if player scored a bonus
