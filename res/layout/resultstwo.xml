@@ -69,11 +69,10 @@
 										android:scrollbarStyle="insideOverlay"
 										android:gravity="center"
 										android:textColor="#CC0000"
-										android:id="@+id/tvResultsMissedList"
 										android:layout_marginLeft="4dp"
 										android:layout_marginRight="4dp"
 										android:scrollbarAlwaysDrawVerticalTrack="true"
-										android:layout_height="match_parent"></TextView>
+										android:layout_height="match_parent" android:id="@+id/tvResultsMissedList"></TextView>
 						</ScrollView>
 				</LinearLayout>
 		</LinearLayout>
@@ -84,14 +83,14 @@
 				android:gravity="center_vertical|center"
 				android:layout_height="80dp"
 				android:layout_marginTop="3dp">
-				<LinearLayout android:layout_height="match_parent" android:id="@+id/linearLayout4" android:gravity="center_vertical|center" android:layout_width="match_parent" android:layout_weight=".5" android:background="@drawable/winner">
+				<LinearLayout android:layout_height="match_parent" android:gravity="center_vertical|center" android:layout_width="match_parent" android:layout_weight=".5" android:id="@+id/linearLayoutYourScore">
 					<TextView android:layout_marginRight="5dp" android:layout_height="wrap_content" android:textColor="#339933" android:text="@string/score" android:layout_width="wrap_content" android:id="@+id/tvScoreLeft" android:textStyle="bold" android:textSize="16dp"></TextView>
 					<TextView android:layout_height="25dp" android:gravity="center_vertical|center_horizontal" android:padding="2dp" android:layout_width="60dp" android:id="@+id/tvScore" android:background="@drawable/backtrans"></TextView>
 				</LinearLayout>
 				<Button android:gravity="center" android:text="@string/MainMenu" android:layout_height="32dp" android:layout_width="wrap_content" android:textSize="10dp" android:id="@+id/btnMainMenu"></Button>
-				<LinearLayout android:layout_height="match_parent" android:id="@+id/linearLayout6" android:gravity="center_vertical|center" android:layout_width="match_parent" android:layout_weight=".5">
+				<LinearLayout android:layout_height="match_parent" android:gravity="center_vertical|center" android:layout_width="match_parent" android:layout_weight=".5" android:id="@+id/linearLayoutTheirScore">
 					<TextView android:layout_marginRight="5dp" android:layout_height="wrap_content" android:textColor="#CC0000" android:text="@string/score" android:layout_width="wrap_content" android:id="@+id/tvScoreRight" android:textStyle="bold" android:textSize="16dp"></TextView>
-					<TextView android:layout_height="25dp" android:gravity="center_vertical|center_horizontal" android:padding="2dp" android:layout_width="60dp" android:id="@+id/tvScore" android:background="@drawable/backtrans"></TextView>
+					<TextView android:layout_height="25dp" android:gravity="center_vertical|center_horizontal" android:padding="2dp" android:layout_width="60dp" android:background="@drawable/backtrans" android:id="@+id/tvTheirScore"></TextView>
 				</LinearLayout>
 		</LinearLayout>
 

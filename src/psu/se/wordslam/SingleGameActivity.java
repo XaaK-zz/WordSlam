@@ -135,15 +135,16 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
         	setContentView(R.layout.gridtwo);
         	wordsOpponentFound = (TextView) findViewById(R.id.tvOpponentWordsFound);
         }
-        else
+        else {
         	setContentView(R.layout.grid);
+        	submitGame = (Button) findViewById(R.id.btnSubmitGame);
+            submitGame.setOnClickListener(this);
+        }
         
         //setup gesture view
         GestureOverlayView gestures = (GestureOverlayView) findViewById(R.id.gestures);
         gestures.addOnGestureListener(this);
         
-        submitGame = (Button) findViewById(R.id.btnSubmitGame);
-        submitGame.setOnClickListener(this);
         wordsFound = (TextView) findViewById(R.id.tvWordsFound);
 
         
