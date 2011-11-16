@@ -10,6 +10,7 @@ package psu.se.wordslam;
 import java.util.ArrayList;
 
 import psu.se.wordslam.model.WordSlamApplication;
+import psu.se.wordslam.model.Game.GameType;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -30,7 +31,12 @@ public class ResultsActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.results);
+        
+        
+        if(wordSlamApplication.GetGame().GetGameType() == GameType.MultiPlayer) {        	
+        	setContentView(R.layout.gridtwo);
+        } else
+        	setContentView(R.layout.results);
      
         wordSlamApplication = (WordSlamApplication)getApplicationContext();
         

@@ -15,113 +15,28 @@
 				<LinearLayout
 						android:gravity="left"
 						android:id="@+id/linearLayout7"
-						android:orientation="vertical"
 						android:layout_height="match_parent"
 						android:weightSum="1"
-						android:layout_weight=".5" android:layout_width="190dp" android:layout_marginRight="2dp">
-						<LinearLayout
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:id="@+id/linearLayout11" android:gravity="center">
-								<TextView
-										android:layout_height="wrap_content"
-										android:gravity="center"
-										android:textStyle="bold"
-										android:id="@+id/tvGridTitle"
-										android:textSize="12dp"
-										android:text="@string/YourWordsFound" android:layout_width="wrap_content" android:layout_marginRight="6dp" android:textColor="#339933"></TextView>
-								<TextView
-										android:layout_height="wrap_content"
-										android:gravity="center"
-										android:textStyle="bold"
-										android:id="@+id/tvGridTitleRight"
-										android:textSize="12dp"
-										android:text="@string/TheirWordsFound" android:layout_width="wrap_content" android:layout_marginLeft="6dp" android:textColor="#CC0000"></TextView>
+						android:layout_marginRight="2dp" android:layout_width="match_parent" android:layout_weight="1" android:orientation="horizontal">
+						<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/linearLayoutLeft" android:layout_weight=".5">
+							<TextView android:layout_width="wrap_content" android:id="@+id/tvGridTitle" android:textSize="12dp" android:textColor="#339933" android:gravity="center" android:text="@string/YourWordsFound" android:textStyle="bold" android:layout_height="wrap_content" android:layout_marginRight="6dp"></TextView>
+							<ScrollView android:layout_width="match_parent" android:fillViewport="true" android:id="@+id/ScrollViewLeft" android:layout_height="190dp" android:layout_weight=".5">
+								<TextView android:scrollbarAlwaysDrawVerticalTrack="true" android:id="@+id/tvWordsFound" android:layout_width="fill_parent" android:scrollbarStyle="insideOverlay" android:textSize="20dp" android:textColor="#339933" android:gravity="center" android:scrollbars="vertical" android:layout_height="fill_parent"></TextView>
+							</ScrollView>
+							<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/linearLayoutScoreLeft" android:layout_marginTop="10dp" android:gravity="center_vertical|center">
+								<TextView android:layout_width="wrap_content" android:id="@+id/tvYourScore" android:textSize="10dp" android:textColor="#339933" android:gravity="center" android:text="@string/score" android:layout_height="wrap_content" android:layout_marginRight="1dp"></TextView>
+								<TextView android:layout_width="30dp" android:id="@+id/tvScore" android:background="@drawable/back" android:textSize="10dp" android:gravity="center_vertical|center_horizontal" android:layout_height="25dp" android:padding="2dp"></TextView>
+							</LinearLayout>
 						</LinearLayout>
-						<LinearLayout
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:id="@+id/linearLayout10">
-								<ScrollView
-										android:layout_width="match_parent"
-										android:fillViewport="true"
-										android:id="@+id/ScrollViewLeft"
-										android:layout_weight=".5"
-										android:layout_height="190dp">
-										<TextView
-												android:layout_width="fill_parent"
-												android:layout_height="fill_parent"
-												android:scrollbarStyle="insideOverlay"
-												android:gravity="center"
-												android:textSize="20dp"
-												android:scrollbarAlwaysDrawVerticalTrack="true"
-												android:scrollbars="vertical"
-												android:id="@+id/tvWordsFound"
-												android:textColor="#339933"></TextView>
-								</ScrollView>
-								<ScrollView
-										android:layout_width="match_parent"
-										android:fillViewport="true"
-										android:id="@+id/ScrollViewRight"
-										android:layout_weight=".5"
-										android:layout_height="190dp">
-										<TextView
-												android:layout_width="fill_parent"
-												android:layout_height="fill_parent"
-												android:scrollbarStyle="insideOverlay"
-												android:gravity="center"
-												android:textSize="20dp"
-												android:scrollbarAlwaysDrawVerticalTrack="true"
-												android:scrollbars="vertical"
-												android:id="@+id/tvOpponentWordsFound"
-												android:textColor="#CC0000"></TextView>
-								</ScrollView>
-						</LinearLayout>
-						<LinearLayout
-								android:id="@+id/linearLayout9"
-								android:layout_width="match_parent"
-								android:gravity="center"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="5dp">
-								<TextView
-										android:layout_width="wrap_content"
-										android:layout_height="wrap_content"
-										android:textSize="10dp"
-										android:id="@+id/tvYourScore"
-										android:gravity="center"
-										android:textColor="#339933" android:text="@string/score" android:layout_marginRight="1dp"></TextView>
-								<TextView
-										android:id="@+id/tvScore"
-										android:gravity="center_vertical|center_horizontal"
-										android:padding="2dp"
-										android:background="@drawable/back"
-										android:layout_height="25dp"
-										android:layout_width="30dp"
-										android:textSize="10dp"></TextView>
-								<Button
-										android:text="@string/Submit"
-										android:layout_gravity="center"
-										android:id="@+id/btnSubmitGame"
-										android:gravity="center"
-										android:textSize="10dp"
-										android:layout_height="30dp"
-										android:layout_width="wrap_content"
-										android:layout_marginLeft="1dp" android:layout_marginRight="1dp"></Button>
-								<TextView
-										android:layout_width="wrap_content"
-										android:layout_height="wrap_content"
-										android:textSize="10dp"
-										android:gravity="center"
-										android:id="@+id/tvTheirScore"
-										android:textColor="#CC0000" android:text="@string/score" android:layout_marginRight="1dp"></TextView>
-								<TextView
-										android:id="@+id/tvScore2"
-										android:gravity="center_vertical|center_horizontal"
-										android:padding="2dp"
-										android:background="@drawable/back"
-										android:layout_height="25dp"
-										android:layout_width="30dp"
-										android:textSize="10dp"></TextView>
+						<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/linearLayoutRight" android:layout_weight=".5">
+							<TextView android:layout_width="wrap_content" android:layout_marginLeft="6dp" android:id="@+id/tvGridTitleRight" android:textSize="12dp" android:textColor="#CC0000" android:gravity="center" android:text="@string/TheirWordsFound" android:textStyle="bold" android:layout_height="wrap_content"></TextView>
+							<ScrollView android:layout_width="match_parent" android:fillViewport="true" android:id="@+id/ScrollViewRight" android:layout_weight=".5" android:layout_height="190dp">
+								<TextView android:scrollbarAlwaysDrawVerticalTrack="true" android:id="@+id/tvOpponentWordsFound" android:layout_width="fill_parent" android:scrollbarStyle="insideOverlay" android:textSize="20dp" android:textColor="#CC0000" android:gravity="center" android:scrollbars="vertical" android:layout_height="fill_parent"></TextView>
+							</ScrollView>
+							<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/linearLayoutScoreRight" android:layout_marginTop="10dp" android:gravity="center_vertical|center">
+								<TextView android:layout_width="wrap_content" android:id="@+id/tvTheirScore" android:textSize="10dp" android:textColor="#CC0000" android:gravity="center" android:text="@string/score" android:layout_height="wrap_content" android:layout_marginRight="1dp"></TextView>
+								<TextView android:layout_width="30dp" android:id="@+id/tvScore2" android:background="@drawable/back" android:textSize="10dp" android:gravity="center_vertical|center_horizontal" android:layout_height="25dp" android:padding="2dp"></TextView>
+							</LinearLayout>
 						</LinearLayout>
 				</LinearLayout>
 				<android.gesture.GestureOverlayView
