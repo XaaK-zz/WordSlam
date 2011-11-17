@@ -160,6 +160,11 @@ public class Game
 		return wordsFound;
 	}
 	
+	public ArrayList<String> getOpponentFoundWords() 
+	{
+		return wordsOpponentFound;
+	}
+	
 	
 	/**
 	 * Retrieval method for all words on board

@@ -47,6 +47,7 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 	private TextView				wordsOpponentFound;
 	private WordSlamApplication		wordSlamApplication;
 	private Vector<GridButton> 		selectedButtons = new Vector<GridButton>();
+	private Typeface 				tf; 
 	
 	//delta values used to determine next valid grid button
 	private int deltaX;
@@ -133,7 +134,8 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
         wordSlamApplication = (WordSlamApplication)getApplicationContext();
         if(wordSlamApplication.GetGame().GetGameType() == GameType.MultiPlayer) {        	
         	setContentView(R.layout.gridtwo);
-        	wordsOpponentFound = (TextView) findViewById(R.id.tvOpponentWordsFound);
+        	multiPlayerLayoutSetup();
+        	//wordsOpponentFound = (TextView) findViewById(R.id.tvOpponentWordsFound);
         }
         else {
         	setContentView(R.layout.grid);
@@ -149,10 +151,8 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 
         
         // set font
-        Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
+        tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
         wordsFound.setTypeface(tf);
-        if(wordsOpponentFound != null)
-        	wordsOpponentFound.setTypeface(tf);
         TextView tv = (TextView) findViewById(R.id.tvGridTitle);
         tv.setTypeface(tf);
         
@@ -359,6 +359,19 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
              e.printStackTrace();
          }
     }
+	
+	
+	
+	private void multiPlayerLayoutSetup() {
+		wordsOpponentFound = (TextView) findViewById(R.id.tvOpponentWordsFound);
+        wordsOpponentFound.setTypeface(tf);
+        ((TextView) findViewById(R.id.tvGridTitleRight)).setTypeface(tf);
+        ((TextView) findViewById(R.id.tvYourScore)).setTypeface(tf);
+        ((TextView) findViewById(R.id.tvTheirScore)).setTypeface(tf);
+        ((TextView) findViewById(R.id.tvScore)).setTypeface(tf);
+        ((TextView) findViewById(R.id.tvScore2)).setTypeface(tf);
+	}
+	
 	
 	/**
 	 * This is invoked via the socket/multiplayer thread when it is time to process the 

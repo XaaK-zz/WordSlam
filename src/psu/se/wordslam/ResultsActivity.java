@@ -20,14 +20,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ResultsActivity extends Activity implements OnClickListener {
 	private Button				mainMenu;
-	private TextView			tvFoundWords;	
-	private TextView			tvMissedWords;
 	private WordSlamApplication wordSlamApplication;
 	private Typeface 			tf; 
-	private ArrayList<String> 	foundWords;
 
 
     /** Called when the activity is first created. */
@@ -38,23 +36,25 @@ public class ResultsActivity extends Activity implements OnClickListener {
         tf = Typeface.createFromAsset(getAssets(),"fonts/COMIXHVY.TTF");
         wordSlamApplication = (WordSlamApplication)getApplicationContext();
         if (wordSlamApplication.GetGame().GetGameType() == GameType.MultiPlayer) {        	
-        	setContentView(R.layout.gridtwo);
-        	sharedLayout();
+        	setContentView(R.layout.resultstwo);
         	twoPlayer();
         } else {
         	setContentView(R.layout.results);
-        	sharedLayout();
         	singlePlayer();
         }
     }
+
     
-    
-    private void sharedLayout() {
-		mainMenu = (Button) findViewById(R.id.btnMainMenu);
+    private void singlePlayer() {	
+    	TextView			tvFoundWords;	
+    	TextView			tvMissedWords;
+    	ArrayList<String> 	foundWords;
+    	ArrayList<String> 	allWords;
+    	
+    	mainMenu = (Button) findViewById(R.id.btnMainMenu);
 		mainMenu.setOnClickListener(this);
 		tvFoundWords = (TextView) findViewById(R.id.tvWordsFoundList);
 		tvMissedWords = (TextView) findViewById(R.id.tvResultsMissedList);
-		
 		
 		// set font
 		tvFoundWords.setTypeface(tf);
@@ -75,12 +75,9 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		for (String s: foundWords) {
 			tvFoundWords.append(s + "\n"); // add to textview
 		}
-    }
-    
-    
-    private void singlePlayer() {	
+		
 		// remove all found words from "allWords" list to get missed words
-		ArrayList<String> allWords = wordSlamApplication.m_Game.getAllWords();
+		allWords = wordSlamApplication.m_Game.getAllWords();
 		for (String s: foundWords) {
 			allWords.remove(s);
 		}
@@ -100,29 +97,61 @@ public class ResultsActivity extends Activity implements OnClickListener {
     
     
     private void twoPlayer() {
+    	TextView			tvYourFoundWords;	
+    	TextView			tvTheirFoundWords;
+    	ArrayList<String>	yourFoundWords;
+    	ArrayList<String>	theirFoundWords;
+    	
+    	mainMenu = (Button) findViewById(R.id.btnMainMenu);
+		mainMenu.setOnClickListener(this);
+		tvYourFoundWords = (TextView) findViewById(R.id.tvResultsYourFound);
+		tvTheirFoundWords = (TextView) findViewById(R.id.tvResultsTheirFound);
+    	
+		// set font
+		tvYourFoundWords.setTypeface(tf);
+		tvYourFoundWords.setTypeface(tf);
+		TextView titleYourFound = (TextView) findViewById(R.id.tvYourWordsFoundTitle);
+		titleYourFound.setTypeface(tf);
+		TextView titleTheirFound = (TextView) findViewById(R.id.tvTheirWordsFoundTitle);
+		titleTheirFound.setTypeface(tf);
+		
+		// Display found words
+		yourFoundWords = wordSlamApplication.m_Game.getFoundWords();
+		// write to results screen
+		for (String s: yourFoundWords) {
+			tvYourFoundWords.append(s + "\n"); // add to textview
+		}
+		
+		theirFoundWords = wordSlamApplication.m_Game.getOpponentFoundWords();
+		for (String s: theirFoundWords) {
+			tvTheirFoundWords.append(s + "\n");	// add to textview
+		}
+		
+		// Display scores
+		TextView yourScore = (TextView) findViewById(R.id.tvYourScore);
+		yourScore.setTypeface(tf);
+		Integer x = wordSlamApplication.m_Game.getScore();
+		yourScore.setText(x.toString());
+		
 		TextView theirScore = (TextView) findViewById(R.id.tvTheirScore);
 		theirScore.setTypeface(tf);
-		// Integer x2 = get opponents score
-		// theirScore.setText(x2.toString());
+		Integer x2 = wordSlamApplication.m_Game.GetOpponentScore();
+		theirScore.setText(x2.toString());
 		
-		// Determine winner
-		/* 
+		// Determine winner 
 		LinearLayout winner;
 		if (x > x2) {
 			winner = (LinearLayout) findViewById(R.id.linearLayoutYourScore);
-			winner.setBackgroundDrawable(R.drawable.winner);
+			winner.setBackgroundResource(R.drawable.winner);
+			winner.setVisibility(View.VISIBLE);
 		} else if (x < x2) {
 			winner = (LinearLayout) findViewById(R.id.linearLayoutTheirScore);
-			winner.setBackgroundDrawable(R.drawable.winner);
+			winner.setBackgroundResource(R.drawable.winner);
+			winner.setVisibility(View.VISIBLE);
 		} else {  			// Tie game
-			// ??? toast?
+			Toast.makeText(this, "Tie Game!", Toast.LENGTH_SHORT).show();
 		}
-		
-		ArrayList<String> theirWords = get their found words
-		for (String s: theirWords) {
-			tvMissedWords.append(s + "\n");	// add to textview
-		}
-		*/
+
     }
     
     

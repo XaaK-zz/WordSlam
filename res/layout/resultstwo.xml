@@ -22,8 +22,7 @@
 								android:layout_marginBottom="3dp"
 								android:textStyle="bold"
 								android:textColor="#339933"
-								android:id="@+id/tvWordsFoundTitle"
-								android:text="@string/ResultsWordsYouFound"></TextView>
+								android:text="@string/ResultsWordsYouFound" android:id="@+id/tvYourWordsFoundTitle"></TextView>
 						<ScrollView
 								android:id="@+id/ScrollView01"
 								android:layout_width="match_parent"
@@ -34,12 +33,11 @@
 										android:scrollbars="vertical"
 										android:gravity="center"
 										android:textColor="#339933"
-										android:id="@+id/tvWordsFoundList"
 										android:layout_marginLeft="4dp"
 										android:layout_marginRight="4dp"
 										android:scrollbarStyle="insideOverlay"
 										android:scrollbarAlwaysDrawVerticalTrack="true"
-										android:layout_height="match_parent" android:background="@drawable/back"></TextView>
+										android:layout_height="match_parent" android:background="@drawable/back" android:id="@+id/tvResultsYourFound"></TextView>
 						</ScrollView>
 				</LinearLayout>
 				<LinearLayout
@@ -55,8 +53,7 @@
 								android:layout_marginBottom="3dp"
 								android:textStyle="bold"
 								android:textColor="#CC0000"
-								android:id="@+id/tvWordsMissedTitle"
-								android:text="@string/ResultsWordsTheyFound"></TextView>
+								android:text="@string/ResultsWordsTheyFound" android:id="@+id/tvTheirWordsFoundTitle"></TextView>
 						<ScrollView
 								android:id="@+id/ScrollView02"
 								android:layout_width="match_parent"
@@ -72,7 +69,7 @@
 										android:layout_marginLeft="4dp"
 										android:layout_marginRight="4dp"
 										android:scrollbarAlwaysDrawVerticalTrack="true"
-										android:layout_height="match_parent" android:id="@+id/tvResultsMissedList"></TextView>
+										android:layout_height="match_parent" android:id="@+id/tvResultsTheirFound"></TextView>
 						</ScrollView>
 				</LinearLayout>
 		</LinearLayout>
@@ -84,12 +81,12 @@
 				android:layout_height="80dp"
 				android:layout_marginTop="3dp">
 				<LinearLayout android:layout_height="match_parent" android:gravity="center_vertical|center" android:layout_width="match_parent" android:layout_weight=".5" android:id="@+id/linearLayoutYourScore">
-					<TextView android:layout_marginRight="5dp" android:layout_height="wrap_content" android:textColor="#339933" android:text="@string/score" android:layout_width="wrap_content" android:id="@+id/tvScoreLeft" android:textStyle="bold" android:textSize="16dp"></TextView>
-					<TextView android:layout_height="25dp" android:gravity="center_vertical|center_horizontal" android:padding="2dp" android:layout_width="60dp" android:id="@+id/tvScore" android:background="@drawable/backtrans"></TextView>
+					<TextView android:layout_marginRight="5dp" android:layout_height="wrap_content" android:textColor="#339933" android:text="@string/score" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="16dp" android:id="@+id/tvYourScoreTitle"></TextView>
+					<TextView android:layout_height="25dp" android:gravity="center_vertical|center_horizontal" android:padding="2dp" android:layout_width="60dp" android:background="@drawable/backtrans" android:id="@+id/tvYourScore"></TextView>
 				</LinearLayout>
 				<Button android:gravity="center" android:text="@string/MainMenu" android:layout_height="32dp" android:layout_width="wrap_content" android:textSize="10dp" android:id="@+id/btnMainMenu"></Button>
 				<LinearLayout android:layout_height="match_parent" android:gravity="center_vertical|center" android:layout_width="match_parent" android:layout_weight=".5" android:id="@+id/linearLayoutTheirScore">
-					<TextView android:layout_marginRight="5dp" android:layout_height="wrap_content" android:textColor="#CC0000" android:text="@string/score" android:layout_width="wrap_content" android:id="@+id/tvScoreRight" android:textStyle="bold" android:textSize="16dp"></TextView>
+					<TextView android:layout_marginRight="5dp" android:layout_height="wrap_content" android:textColor="#CC0000" android:text="@string/score" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="16dp" android:id="@+id/tvTheirScoreTitle"></TextView>
 					<TextView android:layout_height="25dp" android:gravity="center_vertical|center_horizontal" android:padding="2dp" android:layout_width="60dp" android:background="@drawable/backtrans" android:id="@+id/tvTheirScore"></TextView>
 				</LinearLayout>
 		</LinearLayout>
