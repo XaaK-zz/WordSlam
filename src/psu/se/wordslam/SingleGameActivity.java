@@ -71,7 +71,7 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 	//Queue storing the data received from the opponent
 	private Queue<String> dataReceived;
 	
-	//handler used to handle messages receieved from opponent
+	//handler used to handle messages received from opponent
 	private Handler multiplayerHandler = new Handler();
 	
     private Handler btnColorHandler = new Handler();
@@ -135,7 +135,6 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
         if(wordSlamApplication.GetGame().GetGameType() == GameType.MultiPlayer) {        	
         	setContentView(R.layout.gridtwo);
         	multiPlayerLayoutSetup();
-        	//wordsOpponentFound = (TextView) findViewById(R.id.tvOpponentWordsFound);
         }
         else {
         	setContentView(R.layout.grid);
@@ -295,6 +294,24 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 		}
 	}
 	
+	private GridButton GetButtonWithXY(int btnX, int btnY)
+	{
+		int btnNum = 1;
+		
+	    for (int x = 0; x < 5; ++x) {
+			for (int y = 0; y < 5; ++y) {
+				String btnId = "GridButton" + btnNum;
+				int resId = getResources().getIdentifier(btnId, "id", "psu.se.wordslam");
+				GridButton btn = (GridButton) findViewById(resId);
+				if(btn.getX() == btnX && btn.getY() == btnY) {
+					return btn;
+				}
+				btnNum++;
+			}
+	    }
+	    return null;
+	}
+	
 	private GridButton GetButton(int xPos, int yPos)
 	{
 		int btnNum = 1;
@@ -392,8 +409,29 @@ public class SingleGameActivity extends Activity implements OnClickListener, OnG
 				Log.d("UIThread", "process word command - " + command);
 				String data[] = command.split("\\|");
 				Log.d("UIThread", "data[2] - " + data[2]);
+				Log.d("UIThread", "data[1] - " + data[1]);
 				
-				WordSlamApplication.getInstance().GetGame().addOpponentFoundWord(data[2].toUpperCase());
+				//If this is a cutthroat game - show the opponent where the word was found. 
+				if(WordSlamApplication.getInstance().GetGame().IsCutThroat()) {
+					String positions[] = data[1].split(",");
+					selectedButtons.clear();
+					
+					for(String position : positions) {
+						Log.d("UIThread", "position - " + position);
+						
+						int tempX = Integer.parseInt(position.substring(1,2));
+						int tempY = Integer.parseInt(position.substring(2,3));
+						GridButton temp = this.GetButtonWithXY(tempX, tempY);
+						if(temp != null)
+						{
+							temp.SetInCorrect();
+							selectedButtons.add(temp);
+							btnColorHandler.removeCallbacks(this.clearButtonTask);
+							btnColorHandler.postDelayed(this.clearButtonTask, 500);
+						}
+					}
+				}
+				WordSlamApplication.getInstance().GetGame().addOpponentFoundWord(data[2].toLowerCase());
 				//Set Score
 				TextView score = (TextView) findViewById(R.id.tvScore2);
 				Integer x = wordSlamApplication.m_Game.GetOpponentScore();

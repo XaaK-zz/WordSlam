@@ -203,7 +203,10 @@ public class Game
 	 */
 	public boolean wordAlreadyFound(String word)
 	{
-		return wordsFound.contains(word);
+		if(this.IsCutThroat())
+			return this.wordsOpponentFound.contains(word) || wordsFound.contains(word);
+		else
+			return wordsFound.contains(word);
 	}
 	
 	/**
